@@ -9,14 +9,14 @@ import {
 } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-interface PropDef {
+export interface PropDef {
   name: string
   type: string
   default: string
   description: string
 }
 
-interface ComponentPreviewProps {
+export interface ComponentPreviewProps {
   title: string
   description: string
   propsData?: PropDef[]

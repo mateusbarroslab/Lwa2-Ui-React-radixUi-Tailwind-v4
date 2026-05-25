@@ -2,13 +2,14 @@ import { ArrowUpRight, ArrowDownRight, Activity } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
-interface MetricCardProps {
+export interface MetricCardProps {
   title: string
-  value: string
+  value: string | number
   trend: 'up' | 'down' | 'neutral'
   trendValue: string
   timeframe: string
   icon?: React.ElementType
+  className?: string
 }
 
 export function MetricCard({
@@ -18,9 +19,10 @@ export function MetricCard({
   trendValue,
   timeframe,
   icon: Icon = Activity,
+  className,
 }: MetricCardProps) {
   return (
-    <Card className="w-full max-w-[280px] shadow-sm">
+    <Card className={cn('w-full max-w-[280px] shadow-sm', className)}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
         <Icon className="h-4 w-4 text-muted-foreground/50" />
@@ -31,8 +33,8 @@ export function MetricCard({
           <span
             className={cn(
               'flex items-center font-medium',
-              trend === 'up' && 'text-emerald-500',
-              trend === 'down' && 'text-rose-500',
+              trend === 'up' && 'text-success',
+              trend === 'down' && 'text-destructive',
               trend === 'neutral' && 'text-muted-foreground',
             )}
           >

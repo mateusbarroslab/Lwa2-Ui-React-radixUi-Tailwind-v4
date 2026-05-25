@@ -34,6 +34,12 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --success: 142.1 76.2% 36.3%;
+    --success-foreground: 355.7 100% 97.3%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 48 96% 89%;
+    --info: 211.7 81.9% 69.4%;
+    --info-foreground: 210 40% 98%;
   }
 
   .dark {
@@ -64,6 +70,12 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --success: 149.3 80.4% 90.4%;
+    --success-foreground: 141.9 69.2% 58%;
+    --warning: 48 96% 89%;
+    --warning-foreground: 38 92% 50%;
+    --info: 210 40% 98%;
+    --info-foreground: 211.7 81.9% 69.4%;
   }
 
   body {
@@ -96,7 +108,7 @@
   }
   @keyframes slide-up {
     from {
-      transform: translateY(10px);
+      transform: translateY(var(--slide-distance, 10px));
       opacity: 0;
     }
     to {
