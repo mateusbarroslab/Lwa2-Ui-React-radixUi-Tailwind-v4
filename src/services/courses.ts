@@ -1,16 +1,61 @@
 import pb from '@/lib/pocketbase/client'
 import { RecordModel } from 'pocketbase'
 
+export interface CourseModule {
+  title: string
+  items: string[]
+}
+
+export interface CourseBenefit {
+  id: string
+  icon: string
+  title: string
+  text?: string
+  link?: string
+  visible: boolean
+  order: number
+}
+
+export interface CoursePaymentOption {
+  id: string
+  badge?: string
+  title: string
+  old_price?: string
+  current_price: string
+  description?: string
+  observation?: string
+  button_text?: string
+  highlight: boolean
+  order: number
+}
+
 export interface Course extends RecordModel {
   title: string
   slug: string
+  short_description?: string
   description: string
-  workload: string
-  regulatory_info: string
+  workload?: string
+  regulatory_info?: string
+  regulatory_title?: string
+  regulatory_link_text?: string
+  regulatory_url?: string
   category: string
   image: string
-  curriculum: string
+  curriculum?: string
+  curriculum_json?: CourseModule[]
   is_active: boolean
+
+  completion_time?: string
+  national_validity?: boolean
+  council_registration?: string
+  technical_skill_title?: string
+  technical_skill_subtitle?: string
+  commercial_observation?: string
+  material_included?: boolean
+  fixed_monthly_fee?: boolean
+  whatsapp_number?: string
+  benefits_json?: CourseBenefit[]
+  payment_options_json?: CoursePaymentOption[]
 }
 
 export const getCourses = async () => {
