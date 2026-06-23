@@ -83,9 +83,9 @@ export default function Contact() {
                     <div>
                       <p className="font-medium">Endereço</p>
                       <p className="text-sm text-muted-foreground mt-1">
-                        Rua Exemplo, 123 - Centro
+                        Rua Coronel Carvalho, 13, 2º Pavimento, Sobreloja 1:A
                         <br />
-                        São Paulo, SP - 01000-000
+                        Centro - Angra dos Reis
                       </p>
                     </div>
                   </li>
@@ -95,7 +95,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="font-medium">Telefone / WhatsApp</p>
-                      <p className="text-sm text-muted-foreground mt-1">(11) 99999-9999</p>
+                      <p className="text-sm text-muted-foreground mt-1">(24) 99293-4189</p>
                     </div>
                   </li>
                   <li className="flex gap-4">
@@ -140,7 +140,7 @@ export default function Contact() {
                         <FormItem>
                           <FormLabel>WhatsApp *</FormLabel>
                           <FormControl>
-                            <Input placeholder="(11) 99999-9999" {...field} />
+                            <Input placeholder="(24) 99293-4189" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
