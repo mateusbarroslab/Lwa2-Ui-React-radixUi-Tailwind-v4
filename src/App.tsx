@@ -1,34 +1,64 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Toaster } from '@/components/ui/toaster'
 import { Toaster as Sonner } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
-import Layout from './components/Layout'
-import Index from './pages/Index'
-import Tokens from './pages/Tokens'
-import Components from './pages/Components'
-import Patterns from './pages/Patterns'
-import Blocks from './pages/Blocks'
-import Motion from './pages/Motion'
-import NotFound from './pages/NotFound'
+import { AuthProvider, useAuth } from '@/hooks/use-auth'
+
+import PublicLayout from '@/layouts/PublicLayout'
+import AdminLayout from '@/layouts/AdminLayout'
+
+import Home from '@/pages/public/Home'
+import Courses from '@/pages/public/Courses'
+import CourseDetail from '@/pages/public/CourseDetail'
+import Internship from '@/pages/public/Internship'
+import Contact from '@/pages/public/Contact'
+
+import Login from '@/pages/admin/Login'
+import CoursesManager from '@/pages/admin/CoursesManager'
+import ContactsManager from '@/pages/admin/ContactsManager'
+
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthenticated, loading } = useAuth()
+  if (loading) return null
+  if (!isAuthenticated) return <Navigate to="/admin" replace />
+  return <>{children}</>
+}
 
 const App = () => (
-  <BrowserRouter future={{ v7_startTransition: false, v7_relativeSplatPath: false }}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Index />} />
-          <Route path="/tokens" element={<Tokens />} />
-          <Route path="/components" element={<Components />} />
-          <Route path="/patterns" element={<Patterns />} />
-          <Route path="/blocks" element={<Blocks />} />
-          <Route path="/motion" element={<Motion />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </TooltipProvider>
-  </BrowserRouter>
+  <AuthProvider>
+    <BrowserRouter future={{ v7_startTransition: false, v7_relativeSplatPath: false }}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <Routes>
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/cursos" element={<Courses />} />
+            <Route path="/cursos/:slug" element={<CourseDetail />} />
+            <Route path="/estagios" element={<Internship />} />
+            <Route path="/contato" element={<Contact />} />
+          </Route>
+
+          <Route path="/admin" element={<Login />} />
+
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute>
+                <AdminLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Navigate to="/admin/dashboard/courses" replace />} />
+            <Route path="courses" element={<CoursesManager />} />
+            <Route path="contacts" element={<ContactsManager />} />
+          </Route>
+
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </TooltipProvider>
+    </BrowserRouter>
+  </AuthProvider>
 )
 
 export default App
