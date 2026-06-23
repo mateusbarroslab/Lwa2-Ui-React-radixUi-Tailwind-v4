@@ -16,7 +16,7 @@ export default function PublicLayout() {
   const location = useLocation()
   const { isAuthenticated } = useAuth()
 
-  const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent('Olá, gostaria de saber mais sobre a Primeira Conquista.')}`
+  const whatsappUrl = `https://wa.me/24992934189?text=${encodeURIComponent('Olá, gostaria de saber mais sobre a Primeira Conquista.')}`
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -140,9 +140,9 @@ export default function PublicLayout() {
           <div className="space-y-4">
             <h3 className="font-semibold">Contato</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>Rua Exemplo, 123 - Centro</li>
-              <li>São Paulo, SP</li>
-              <li>(11) 99999-9999</li>
+              <li>Rua Coronel Carvalho, 13, 2º Pavimento, Sobreloja 1:A</li>
+              <li>Centro - Angra dos Reis</li>
+              <li>(24) 99293-4189</li>
               <li>contato@primeiraconquista.com.br</li>
             </ul>
           </div>
