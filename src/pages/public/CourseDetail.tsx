@@ -63,14 +63,14 @@ export default function CourseDetail() {
   const hasPayments = course.payment_options_json && course.payment_options_json.length > 0
 
   return (
-    <article className="animate-fade-in bg-background pb-32">
+    <article className="animate-fade-in bg-background pb-32 overflow-x-hidden">
       {/* Hero */}
       <div className="bg-muted/30 border-b relative overflow-hidden">
         <div className="container pt-12 pb-24 lg:pb-32 relative z-10">
           <Button
             variant="ghost"
             asChild
-            className="mb-8 -ml-4 text-muted-foreground hover:text-foreground"
+            className="mb-8 -ml-2 sm:-ml-4 text-muted-foreground hover:text-foreground"
           >
             <Link to="/cursos">
               <Icons.ArrowLeft className="mr-2 h-4 w-4" /> Voltar para Cursos
@@ -98,7 +98,7 @@ export default function CourseDetail() {
                     </Badge>
                   )}
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-tight break-words">
                   {course.title}
                 </h1>
                 {course.short_description && (
@@ -111,7 +111,7 @@ export default function CourseDetail() {
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
                 <Button
                   size="lg"
-                  className="hidden sm:inline-flex h-14 px-8 text-lg font-bold bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg shadow-[#25D366]/20 transition-all hover:-translate-y-1"
+                  className="hidden lg:inline-flex h-14 px-8 text-lg font-bold bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg shadow-[#25D366]/20 transition-all hover:-translate-y-1"
                   asChild
                 >
                   <a href={wppUrl} target="_blank" rel="noreferrer">
@@ -151,21 +151,25 @@ export default function CourseDetail() {
       {highlightOption && (
         <div className="container relative z-20 -mt-12 lg:-mt-16 mb-16">
           <div className="bg-card border shadow-2xl rounded-3xl p-6 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 animate-slide-up">
-            <div className="flex-1 space-y-2 text-center lg:text-left">
+            <div className="flex-1 space-y-2 text-center lg:text-left min-w-0 break-words">
               <Badge className="mb-2">{highlightOption.badge || 'Condição Especial'}</Badge>
-              <h3 className="text-2xl lg:text-3xl font-bold">{highlightOption.title}</h3>
-              <div className="text-4xl lg:text-5xl font-extrabold text-primary">
+              <h3 className="text-2xl lg:text-3xl font-bold break-words">
+                {highlightOption.title}
+              </h3>
+              <div className="text-4xl lg:text-5xl font-extrabold text-primary break-words">
                 {highlightOption.current_price}
               </div>
               {highlightOption.description && (
-                <p className="text-muted-foreground text-lg">{highlightOption.description}</p>
+                <p className="text-muted-foreground text-base sm:text-lg break-words">
+                  {highlightOption.description}
+                </p>
               )}
             </div>
             <div className="w-full lg:w-auto flex flex-col gap-4 min-w-[280px]">
               <Button
                 asChild
                 size="lg"
-                className="w-full h-14 text-lg font-bold bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg"
+                className="hidden lg:inline-flex w-full h-14 text-lg font-bold bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg"
               >
                 <a href={wppUrl} target="_blank" rel="noreferrer">
                   <Icons.MessageCircle className="mr-2 h-5 w-5" /> Garantir Vaga
@@ -196,11 +200,11 @@ export default function CourseDetail() {
                       <DynamicIcon name={benefit.icon} className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold mb-1 group-hover:text-primary transition-colors">
+                      <h3 className="text-lg font-bold mb-1 group-hover:text-primary transition-colors break-words">
                         {benefit.title}
                       </h3>
                       {benefit.text && (
-                        <p className="text-sm text-muted-foreground leading-relaxed">
+                        <p className="text-sm text-muted-foreground leading-relaxed break-words">
                           {benefit.text}
                         </p>
                       )}
@@ -245,11 +249,11 @@ export default function CourseDetail() {
                   <h3 className="text-xl md:text-2xl font-bold text-primary mb-3">
                     Habilitação Profissional
                   </h3>
-                  <p className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
+                  <p className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight break-words">
                     {course.technical_skill_title}
                   </p>
                   {course.technical_skill_subtitle && (
-                    <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">
+                    <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl break-words">
                       {course.technical_skill_subtitle}
                     </p>
                   )}
@@ -259,28 +263,28 @@ export default function CourseDetail() {
 
             {/* About Course */}
             <section className="space-y-8">
-              <h2 className="text-3xl font-bold tracking-tight flex items-center gap-3">
-                <Icons.Info className="h-8 w-8 text-primary" /> Sobre o Curso
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight flex items-center gap-3">
+                <Icons.Info className="h-8 w-8 text-primary shrink-0" /> Sobre o Curso
               </h2>
               <div
-                className="prose prose-slate prose-orange dark:prose-invert max-w-none text-lg text-muted-foreground leading-relaxed"
+                className="prose prose-slate prose-orange dark:prose-invert max-w-none text-base sm:text-lg text-muted-foreground leading-relaxed break-words overflow-hidden"
                 dangerouslySetInnerHTML={{ __html: course.description }}
               />
             </section>
 
             {/* Regulatory Info Block */}
             {course.regulatory_title && (
-              <section className="w-full bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-3xl p-6 sm:p-8 md:p-10 overflow-hidden">
-                <div className="flex flex-col md:flex-row items-start md:items-center gap-6 w-full">
-                  <div className="h-16 w-16 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center shrink-0">
-                    <Icons.Landmark className="h-8 w-8" />
+              <section className="w-full bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 overflow-hidden">
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 w-full">
+                  <div className="h-12 w-12 sm:h-16 sm:w-16 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0">
+                    <Icons.Landmark className="h-6 w-6 sm:h-8 sm:w-8" />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-2xl font-bold text-foreground mb-2 break-words">
+                  <div className="flex-1 min-w-0 w-full">
+                    <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 break-words">
                       {course.regulatory_title}
                     </h3>
                     {(course.regulatory_info || course.council_registration) && (
-                      <p className="text-muted-foreground text-lg leading-relaxed break-words">
+                      <p className="text-muted-foreground text-base sm:text-lg leading-relaxed break-words">
                         {course.regulatory_info}
                         {course.regulatory_info && course.council_registration && ' • '}
                         {course.council_registration && `Registro: ${course.council_registration}`}
@@ -291,15 +295,17 @@ export default function CourseDetail() {
                     <Button
                       asChild
                       variant="outline"
-                      className="shrink-0 bg-background w-full md:w-auto"
+                      className="shrink-0 bg-background w-full md:w-auto whitespace-normal h-auto min-h-10 py-2"
                     >
                       <a
                         href={course.regulatory_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center w-full"
+                        className="flex items-center justify-center w-full text-center"
                       >
-                        <span className="truncate">{course.regulatory_link_text}</span>
+                        <span className="break-words line-clamp-2">
+                          {course.regulatory_link_text}
+                        </span>
                         <Icons.ExternalLink className="ml-2 h-4 w-4 shrink-0" />
                       </a>
                     </Button>
@@ -310,29 +316,31 @@ export default function CourseDetail() {
 
             {/* Curriculum Viewer */}
             {course.curriculum_json && course.curriculum_json.length > 0 && (
-              <section className="space-y-8">
-                <h2 className="text-3xl font-bold tracking-tight flex items-center gap-3">
-                  <Icons.BookOpen className="h-8 w-8 text-primary" /> Grade Curricular
+              <section className="space-y-6 sm:space-y-8 w-full overflow-hidden">
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight flex items-center gap-3">
+                  <Icons.BookOpen className="h-8 w-8 text-primary shrink-0" /> Grade Curricular
                 </h2>
-                <Accordion type="multiple" className="w-full space-y-4">
+                <Accordion type="multiple" className="w-full space-y-3 sm:space-y-4">
                   {course.curriculum_json.map((mod, idx) => (
                     <AccordionItem
                       value={`mod-${idx}`}
                       key={idx}
-                      className="border rounded-2xl px-6 bg-card data-[state=open]:border-primary/30 transition-colors shadow-sm"
+                      className="border rounded-xl sm:rounded-2xl px-4 sm:px-6 bg-card data-[state=open]:border-primary/30 transition-colors shadow-sm overflow-hidden"
                     >
-                      <AccordionTrigger className="text-left font-semibold text-lg hover:no-underline py-6 break-words pr-4">
-                        {mod.title}
+                      <AccordionTrigger className="text-left font-semibold text-base sm:text-lg hover:no-underline py-4 sm:py-6 break-words gap-4">
+                        <span className="flex-1 break-words">{mod.title}</span>
                       </AccordionTrigger>
-                      <AccordionContent className="pb-6 pt-2">
-                        <ul className="space-y-4">
+                      <AccordionContent className="pb-4 sm:pb-6 pt-1 sm:pt-2">
+                        <ul className="space-y-3 sm:space-y-4">
                           {mod.items.map((item, i) => (
                             <li
                               key={i}
-                              className="flex gap-4 items-start text-muted-foreground break-words"
+                              className="flex gap-3 sm:gap-4 items-start text-muted-foreground break-words"
                             >
                               <div className="mt-2 h-1.5 w-1.5 rounded-full bg-primary/60 shrink-0" />
-                              <span className="text-[1.05rem] leading-relaxed flex-1">{item}</span>
+                              <span className="text-sm sm:text-[1.05rem] leading-relaxed flex-1 break-words">
+                                {item}
+                              </span>
                             </li>
                           ))}
                         </ul>
@@ -345,12 +353,12 @@ export default function CourseDetail() {
 
             {course.curriculum &&
               (!course.curriculum_json || course.curriculum_json.length === 0) && (
-                <section className="space-y-8">
-                  <h2 className="text-3xl font-bold tracking-tight flex items-center gap-3">
-                    <Icons.BookOpen className="h-8 w-8 text-primary" /> Conteúdo Curricular
+                <section className="space-y-6 sm:space-y-8 w-full overflow-hidden">
+                  <h2 className="text-2xl sm:text-3xl font-bold tracking-tight flex items-center gap-3">
+                    <Icons.BookOpen className="h-8 w-8 text-primary shrink-0" /> Conteúdo Curricular
                   </h2>
                   <div
-                    className="prose prose-slate prose-orange dark:prose-invert max-w-none text-muted-foreground"
+                    className="prose prose-slate prose-orange dark:prose-invert max-w-none text-sm sm:text-base text-muted-foreground break-words overflow-x-auto"
                     dangerouslySetInnerHTML={{ __html: course.curriculum }}
                   />
                 </section>
@@ -394,7 +402,7 @@ export default function CourseDetail() {
                           </p>
                         )}
                         <Button
-                          className="w-full h-12 text-base font-bold shadow-sm"
+                          className="hidden lg:inline-flex w-full h-12 text-base font-bold shadow-sm"
                           variant={opt.highlight ? 'default' : 'outline'}
                           asChild
                         >
@@ -427,7 +435,7 @@ export default function CourseDetail() {
                 </p>
                 <Button
                   size="lg"
-                  className="w-full h-14 text-base font-bold bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg shadow-[#25D366]/20"
+                  className="hidden lg:inline-flex w-full h-14 text-base font-bold bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg shadow-[#25D366]/20"
                   asChild
                 >
                   <a href={wppUrl} target="_blank" rel="noreferrer">
@@ -454,7 +462,7 @@ export default function CourseDetail() {
           asChild
         >
           <a href={wppUrl} target="_blank" rel="noreferrer">
-            <Icons.MessageCircle className="mr-2 h-6 w-6" /> Falar no WhatsApp
+            <Icons.MessageCircle className="mr-2 h-6 w-6 shrink-0" /> Falar no WhatsApp
           </a>
         </Button>
       </div>
