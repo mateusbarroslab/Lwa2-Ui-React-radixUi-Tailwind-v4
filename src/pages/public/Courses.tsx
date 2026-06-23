@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Search, Clock, FileText, ArrowRight } from 'lucide-react'
+import { Search, Clock, FileText, ArrowRight, GraduationCap, BookOpen } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'

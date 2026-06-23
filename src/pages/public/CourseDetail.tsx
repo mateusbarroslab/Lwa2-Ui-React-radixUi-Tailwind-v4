@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { Clock, FileText, CheckCircle, ArrowLeft, MessageCircle } from 'lucide-react'
+import { Clock, FileText, CheckCircle, ArrowLeft, MessageCircle, GraduationCap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
