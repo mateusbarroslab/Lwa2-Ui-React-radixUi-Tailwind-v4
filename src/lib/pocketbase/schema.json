@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T18:18:59.438Z",
+  "generatedAt": "2026-06-23T18:37:28.559Z",
   "collections": [
     {
       "name": "users",
@@ -29,14 +29,19 @@
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate"]
+          "autodateTriggers": [
+            "onCreate"
+          ]
         },
         {
           "name": "updated",
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate", "onUpdate"]
+          "autodateTriggers": [
+            "onCreate",
+            "onUpdate"
+          ]
         }
       ],
       "indexes": [
@@ -90,7 +95,13 @@
           "type": "select",
           "required": false,
           "system": false,
-          "selectValues": ["Industrial", "Health", "Business", "Technology", "Other"]
+          "selectValues": [
+            "Industrial",
+            "Health",
+            "Business",
+            "Technology",
+            "Other"
+          ]
         },
         {
           "name": "image",
@@ -123,17 +134,24 @@
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate"]
+          "autodateTriggers": [
+            "onCreate"
+          ]
         },
         {
           "name": "updated",
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate", "onUpdate"]
+          "autodateTriggers": [
+            "onCreate",
+            "onUpdate"
+          ]
         }
       ],
-      "indexes": ["CREATE UNIQUE INDEX idx_courses_slug ON courses (slug)"]
+      "indexes": [
+        "CREATE UNIQUE INDEX idx_courses_slug ON courses (slug)"
+      ]
     },
     {
       "name": "contacts",
@@ -182,14 +200,19 @@
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate"]
+          "autodateTriggers": [
+            "onCreate"
+          ]
         },
         {
           "name": "updated",
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate", "onUpdate"]
+          "autodateTriggers": [
+            "onCreate",
+            "onUpdate"
+          ]
         }
       ],
       "indexes": []
