@@ -16,13 +16,15 @@ export function CourseForm({
   onSubmit,
   onCancel,
   isSubmitting,
+  initialFile,
 }: {
   initialValues: CourseFormValues
   onSubmit: (values: CourseFormValues, file: File | null) => Promise<void>
   onCancel: () => void
   isSubmitting: boolean
+  initialFile?: File | null
 }) {
-  const [file, setFile] = useState<File | null>(null)
+  const [file, setFile] = useState<File | null>(initialFile || null)
   const form = useForm<CourseFormValues>({
     resolver: zodResolver(courseFormSchema),
     defaultValues: initialValues,

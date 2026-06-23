@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Plus, Edit, Trash2, Image as ImageIcon } from 'lucide-react'
+import { Plus, Edit, Trash2, Image as ImageIcon, Copy } from 'lucide-react'
 import {
   getAdminCourses,
   createCourse,
@@ -30,6 +30,7 @@ export default function CoursesManager() {
   const [open, setOpen] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [initialValues, setInitialValues] = useState<CourseFormValues | null>(null)
+  const [initialFile, setInitialFile] = useState<File | null>(null)
   const [submitting, setSubmitting] = useState(false)
 
   const loadCourses = async () => {
@@ -48,6 +49,7 @@ export default function CoursesManager() {
   useRealtime('courses', loadCourses)
 
   const handleOpen = (course?: Course) => {
+    setInitialFile(null)
     if (course) {
       setEditingId(course.id)
       setInitialValues({
@@ -145,6 +147,53 @@ export default function CoursesManager() {
     }
   }
 
+  const handleDuplicate = async (course: Course) => {
+    setEditingId(null)
+    setInitialFile(null)
+
+    if (course.image) {
+      try {
+        const url = getCourseImageUrl(course, course.image)
+        const res = await fetch(url)
+        const blob = await res.blob()
+        const file = new File([blob], course.image, { type: blob.type })
+        setInitialFile(file)
+      } catch (err) {
+        console.error('Failed to load image for duplication', err)
+      }
+    }
+
+    setInitialValues({
+      title: `${course.title} (Cópia)`,
+      slug: `${course.slug}-copia-${Math.floor(Math.random() * 10000)}`,
+      short_description: course.short_description || '',
+      description: course.description,
+      workload: course.workload || '',
+      category: course.category || 'Other',
+      is_active: false,
+      curriculum: course.curriculum || '',
+      regulatory_title: course.regulatory_title || '',
+      regulatory_link_text: course.regulatory_link_text || '',
+      regulatory_url: course.regulatory_url || '',
+      completion_time: course.completion_time || '',
+      national_validity: course.national_validity || false,
+      council_registration: course.council_registration || '',
+      technical_skill_title: course.technical_skill_title || '',
+      technical_skill_subtitle: course.technical_skill_subtitle || '',
+      commercial_observation: course.commercial_observation || '',
+      material_included: course.material_included || false,
+      fixed_monthly_fee: course.fixed_monthly_fee || false,
+      whatsapp_number: course.whatsapp_number || '',
+      curriculum_json: (course.curriculum_json || []).map((m: any) => ({
+        ...m,
+        items: m.items.map((i: string) => ({ value: i })),
+      })),
+      benefits_json: course.benefits_json || [],
+      payment_options_json: course.payment_options_json || [],
+    })
+    setOpen(true)
+  }
+
   const handleDelete = async (id: string) => {
     if (!confirm('Tem certeza que deseja excluir permanentemente este curso?')) return
     try {
@@ -217,7 +266,20 @@ export default function CoursesManager() {
                     )}
                   </TableCell>
                   <TableCell className="text-right pr-4">
-                    <Button variant="ghost" size="icon" onClick={() => handleOpen(course)}>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleDuplicate(course)}
+                      title="Duplicar"
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleOpen(course)}
+                      title="Editar"
+                    >
                       <Edit className="h-4 w-4" />
                     </Button>
                     <Button
@@ -225,10 +287,11 @@ export default function CoursesManager() {
                       size="icon"
                       className="text-destructive"
                       onClick={() => handleDelete(course.id)}
+                      title="Excluir"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
-                  </TableCell>
+                  </TableCell>{' '}
                 </TableRow>
               ))
             )}
@@ -250,8 +313,9 @@ export default function CoursesManager() {
               onSubmit={onSubmit}
               onCancel={() => setOpen(false)}
               isSubmitting={submitting}
+              initialFile={initialFile}
             />
-          )}
+          )}{' '}
         </DialogContent>
       </Dialog>
     </div>
