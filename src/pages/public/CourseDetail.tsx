@@ -59,8 +59,7 @@ export default function CourseDetail() {
     paymentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const highlightOption =
-    course.payment_options_json?.find((o) => o.highlight) || course.payment_options_json?.[0]
+  const highlightOption = course.payment_options_json?.find((o) => o.highlight)
   const hasPayments = course.payment_options_json && course.payment_options_json.length > 0
 
   return (
@@ -112,7 +111,7 @@ export default function CourseDetail() {
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
                 <Button
                   size="lg"
-                  className="w-full sm:w-auto h-14 px-8 text-lg font-bold bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg shadow-[#25D366]/20 transition-all hover:-translate-y-1"
+                  className="hidden sm:inline-flex h-14 px-8 text-lg font-bold bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg shadow-[#25D366]/20 transition-all hover:-translate-y-1"
                   asChild
                 >
                   <a href={wppUrl} target="_blank" rel="noreferrer">
@@ -123,7 +122,7 @@ export default function CourseDetail() {
                 {hasPayments && (
                   <button
                     onClick={scrollToPayment}
-                    className="text-sm font-medium underline text-muted-foreground hover:text-foreground transition-colors py-2"
+                    className="text-base sm:text-sm font-medium underline text-muted-foreground hover:text-foreground transition-colors py-2"
                   >
                     Ver opções de pagamento
                   </button>
@@ -190,24 +189,44 @@ export default function CourseDetail() {
             {course.benefits_json
               .filter((b) => b.visible)
               .sort((a, b) => a.order - b.order)
-              .map((benefit) => (
-                <div
-                  key={benefit.id}
-                  className="p-6 rounded-2xl border bg-card hover:border-primary/30 transition-all hover:shadow-md group flex items-start gap-4"
-                >
-                  <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <DynamicIcon name={benefit.icon} className="h-6 w-6 text-primary" />
+              .map((benefit) => {
+                const CardContent = (
+                  <>
+                    <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <DynamicIcon name={benefit.icon} className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold mb-1 group-hover:text-primary transition-colors">
+                        {benefit.title}
+                      </h3>
+                      {benefit.text && (
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {benefit.text}
+                        </p>
+                      )}
+                    </div>
+                  </>
+                )
+
+                return benefit.link ? (
+                  <a
+                    key={benefit.id}
+                    href={benefit.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-6 rounded-2xl border bg-card hover:border-primary/30 transition-all hover:shadow-md group flex items-start gap-4 block w-full"
+                  >
+                    {CardContent}
+                  </a>
+                ) : (
+                  <div
+                    key={benefit.id}
+                    className="p-6 rounded-2xl border bg-card hover:border-primary/30 transition-all hover:shadow-md group flex items-start gap-4 w-full"
+                  >
+                    {CardContent}
                   </div>
-                  <div>
-                    <h3 className="text-lg font-bold mb-1">{benefit.title}</h3>
-                    {benefit.text && (
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {benefit.text}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              ))}
+                )
+              })}
           </div>
         </div>
       )}
@@ -251,17 +270,17 @@ export default function CourseDetail() {
 
             {/* Regulatory Info Block */}
             {course.regulatory_title && (
-              <section className="bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-3xl p-8 md:p-10">
-                <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+              <section className="w-full bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-3xl p-6 sm:p-8 md:p-10 overflow-hidden">
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-6 w-full">
                   <div className="h-16 w-16 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center shrink-0">
                     <Icons.Landmark className="h-8 w-8" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-foreground mb-2">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-2xl font-bold text-foreground mb-2 break-words">
                       {course.regulatory_title}
                     </h3>
                     {(course.regulatory_info || course.council_registration) && (
-                      <p className="text-muted-foreground text-lg leading-relaxed">
+                      <p className="text-muted-foreground text-lg leading-relaxed break-words">
                         {course.regulatory_info}
                         {course.regulatory_info && course.council_registration && ' • '}
                         {course.council_registration && `Registro: ${course.council_registration}`}
@@ -269,10 +288,19 @@ export default function CourseDetail() {
                     )}
                   </div>
                   {course.regulatory_url && course.regulatory_link_text && (
-                    <Button asChild variant="outline" className="shrink-0 bg-background">
-                      <a href={course.regulatory_url} target="_blank" rel="noopener noreferrer">
-                        {course.regulatory_link_text}{' '}
-                        <Icons.ExternalLink className="ml-2 h-4 w-4" />
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="shrink-0 bg-background w-full md:w-auto"
+                    >
+                      <a
+                        href={course.regulatory_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center w-full"
+                      >
+                        <span className="truncate">{course.regulatory_link_text}</span>
+                        <Icons.ExternalLink className="ml-2 h-4 w-4 shrink-0" />
                       </a>
                     </Button>
                   )}
@@ -293,15 +321,18 @@ export default function CourseDetail() {
                       key={idx}
                       className="border rounded-2xl px-6 bg-card data-[state=open]:border-primary/30 transition-colors shadow-sm"
                     >
-                      <AccordionTrigger className="text-left font-semibold text-lg hover:no-underline py-6">
+                      <AccordionTrigger className="text-left font-semibold text-lg hover:no-underline py-6 break-words pr-4">
                         {mod.title}
                       </AccordionTrigger>
                       <AccordionContent className="pb-6 pt-2">
                         <ul className="space-y-4">
                           {mod.items.map((item, i) => (
-                            <li key={i} className="flex gap-4 items-start text-muted-foreground">
+                            <li
+                              key={i}
+                              className="flex gap-4 items-start text-muted-foreground break-words"
+                            >
                               <div className="mt-2 h-1.5 w-1.5 rounded-full bg-primary/60 shrink-0" />
-                              <span className="text-[1.05rem] leading-relaxed">{item}</span>
+                              <span className="text-[1.05rem] leading-relaxed flex-1">{item}</span>
                             </li>
                           ))}
                         </ul>
