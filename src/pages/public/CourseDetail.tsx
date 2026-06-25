@@ -11,6 +11,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { useSEO } from '@/hooks/use-seo'
+import { useSettingsContext } from '@/hooks/use-settings'
 import { getCourseBySlug, Course, getCourseImageUrl } from '@/services/courses'
 
 const DynamicIcon = ({ name, className }: { name: string; className?: string }) => {
@@ -25,6 +26,7 @@ export default function CourseDetail() {
   const [course, setCourse] = useState<Course | null>(null)
   const [loading, setLoading] = useState(true)
   const paymentRef = useRef<HTMLDivElement>(null)
+  const { settings } = useSettingsContext()
 
   useEffect(() => {
     if (!slug) return
@@ -51,7 +53,7 @@ export default function CourseDetail() {
       </div>
     )
 
-  const wppNum = course.whatsapp_number || '5511999999999'
+  const wppNum = course.whatsapp_number || settings?.whatsapp?.replace(/\D/g, '') || '5511999999999'
   const wppText = encodeURIComponent(`Olá, tenho interesse no curso ${course.title}.`)
   const wppUrl = `https://wa.me/${wppNum}?text=${wppText}`
 

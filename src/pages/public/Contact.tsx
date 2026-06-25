@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { MapPin, Phone, Mail, Send } from 'lucide-react'
 import { useSEO } from '@/hooks/use-seo'
+import { useSettingsContext } from '@/hooks/use-settings'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -32,6 +33,8 @@ export default function Contact() {
   )
 
   const [submitting, setSubmitting] = useState(false)
+
+  const { settings } = useSettingsContext()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -82,11 +85,16 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="font-medium">Endereço</p>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        Rua Coronel Carvalho, 13, 2º Pavimento, Sobreloja 1:A
-                        <br />
-                        Centro - Angra dos Reis
-                      </p>
+                      <div className="text-sm text-muted-foreground mt-1">
+                        {settings?.address ? (
+                          settings.address.split('\n').map((line, i) => <div key={i}>{line}</div>)
+                        ) : (
+                          <>
+                            <div>Rua Coronel Carvalho, 13, 2º Pavimento, Sobreloja 1:A</div>
+                            <div>Centro - Angra dos Reis</div>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </li>
                   <li className="flex gap-4">
@@ -95,7 +103,9 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="font-medium">Telefone / WhatsApp</p>
-                      <p className="text-sm text-muted-foreground mt-1">(24) 99293-4189</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {settings?.phone || '(24) 99293-4189'}
+                      </p>
                     </div>
                   </li>
                   <li className="flex gap-4">
@@ -105,7 +115,7 @@ export default function Contact() {
                     <div>
                       <p className="font-medium">E-mail</p>
                       <p className="text-sm text-muted-foreground mt-1">
-                        contato@primeiraconquista.com.br
+                        {settings?.email || 'contato@primeiraconquista.com.br'}
                       </p>
                     </div>
                   </li>

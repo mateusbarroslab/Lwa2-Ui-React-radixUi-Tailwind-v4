@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/hooks/use-auth'
+import { useSettingsContext } from '@/hooks/use-settings'
+import { getSettingsImageUrl } from '@/services/settings'
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
@@ -15,16 +17,29 @@ const NAV_LINKS = [
 export default function PublicLayout() {
   const location = useLocation()
   const { isAuthenticated } = useAuth()
+  const { settings } = useSettingsContext()
 
-  const whatsappUrl = `https://wa.me/24992934189?text=${encodeURIComponent('Olá, gostaria de saber mais sobre a Primeira Conquista.')}`
+  const whatsappUrl = settings?.whatsapp
+    ? `https://wa.me/${settings.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent('Olá, gostaria de saber mais sobre a Primeira Conquista.')}`
+    : `https://wa.me/5524992934189?text=${encodeURIComponent('Olá, gostaria de saber mais sobre a Primeira Conquista.')}`
 
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <GraduationCap className="h-6 w-6 text-primary" />
-            <span className="font-bold tracking-tight">Primeira Conquista</span>
+            {settings?.logo_header ? (
+              <img
+                src={getSettingsImageUrl(settings, settings.logo_header)}
+                alt="Logo"
+                className="h-8 w-auto max-w-[180px] object-contain"
+              />
+            ) : (
+              <>
+                <GraduationCap className="h-6 w-6 text-primary" />
+                <span className="font-bold tracking-tight">Primeira Conquista</span>
+              </>
+            )}
           </Link>
 
           <nav className="hidden md:flex gap-6">
@@ -66,8 +81,18 @@ export default function PublicLayout() {
               <SheetContent side="right">
                 <SheetHeader>
                   <SheetTitle className="text-left flex items-center gap-2">
-                    <GraduationCap className="h-5 w-5 text-primary" />
-                    Primeira Conquista
+                    {settings?.logo_header ? (
+                      <img
+                        src={getSettingsImageUrl(settings, settings.logo_header)}
+                        alt="Logo"
+                        className="h-6 w-auto max-w-[150px] object-contain"
+                      />
+                    ) : (
+                      <>
+                        <GraduationCap className="h-5 w-5 text-primary" />
+                        Primeira Conquista
+                      </>
+                    )}
                   </SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col gap-4 mt-8">
@@ -109,8 +134,18 @@ export default function PublicLayout() {
         <div className="container grid gap-8 md:grid-cols-4">
           <div className="md:col-span-2 space-y-4">
             <Link to="/" className="flex items-center gap-2">
-              <GraduationCap className="h-6 w-6 text-primary" />
-              <span className="font-bold tracking-tight">Primeira Conquista</span>
+              {settings?.logo_footer ? (
+                <img
+                  src={getSettingsImageUrl(settings, settings.logo_footer)}
+                  alt="Logo Footer"
+                  className="h-10 w-auto max-w-[200px] object-contain"
+                />
+              ) : (
+                <>
+                  <GraduationCap className="h-6 w-6 text-primary" />
+                  <span className="font-bold tracking-tight">Primeira Conquista</span>
+                </>
+              )}
             </Link>
             <p className="text-sm text-muted-foreground max-w-sm">
               Formando profissionais para o mercado de trabalho com excelência e estrutura de
@@ -140,10 +175,18 @@ export default function PublicLayout() {
           <div className="space-y-4">
             <h3 className="font-semibold">Contato</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>Rua Coronel Carvalho, 13, 2º Pavimento, Sobreloja 1:A</li>
-              <li>Centro - Angra dos Reis</li>
-              <li>(24) 99293-4189</li>
-              <li>contato@primeiraconquista.com.br</li>
+              <li>
+                {settings?.address ? (
+                  settings.address.split('\n').map((line, i) => <div key={i}>{line}</div>)
+                ) : (
+                  <>
+                    <div>Rua Coronel Carvalho, 13, 2º Pavimento, Sobreloja 1:A</div>
+                    <div>Centro - Angra dos Reis</div>
+                  </>
+                )}
+              </li>
+              <li>{settings?.phone || '(24) 99293-4189'}</li>
+              <li>{settings?.email || 'contato@primeiraconquista.com.br'}</li>
             </ul>
           </div>
         </div>

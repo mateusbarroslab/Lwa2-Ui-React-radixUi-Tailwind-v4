@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, BookOpen, MessageSquare, LogOut, Tags } from 'lucide-react'
+import { LayoutDashboard, BookOpen, MessageSquare, LogOut, Tags, Settings } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/hooks/use-auth'
 import { Button } from '@/components/ui/button'
@@ -8,6 +8,7 @@ const navigation = [
   { name: 'Cursos', href: '/admin/dashboard/courses', icon: BookOpen },
   { name: 'Categorias', href: '/admin/dashboard/categories', icon: Tags },
   { name: 'Contatos', href: '/admin/dashboard/contacts', icon: MessageSquare },
+  { name: 'Configurações', href: '/admin/dashboard/settings', icon: Settings },
 ]
 
 export default function AdminLayout() {

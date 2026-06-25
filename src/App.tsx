@@ -3,6 +3,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { Toaster as Sonner } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { AuthProvider, useAuth } from '@/hooks/use-auth'
+import { SettingsProvider } from '@/hooks/use-settings'
 
 import PublicLayout from '@/layouts/PublicLayout'
 import AdminLayout from '@/layouts/AdminLayout'
@@ -17,6 +18,7 @@ import Login from '@/pages/admin/Login'
 import CoursesManager from '@/pages/admin/CoursesManager'
 import CategoriesManager from '@/pages/admin/CategoriesManager'
 import ContactsManager from '@/pages/admin/ContactsManager'
+import SettingsManager from '@/pages/admin/SettingsManager'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, loading } = useAuth()
@@ -27,39 +29,42 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
 const App = () => (
   <AuthProvider>
-    <BrowserRouter future={{ v7_startTransition: false, v7_relativeSplatPath: false }}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <Routes>
-          <Route element={<PublicLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/cursos" element={<Courses />} />
-            <Route path="/cursos/:slug" element={<CourseDetail />} />
-            <Route path="/estagios" element={<Internship />} />
-            <Route path="/contato" element={<Contact />} />
-          </Route>
+    <SettingsProvider>
+      <BrowserRouter future={{ v7_startTransition: false, v7_relativeSplatPath: false }}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <Routes>
+            <Route element={<PublicLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/cursos" element={<Courses />} />
+              <Route path="/cursos/:slug" element={<CourseDetail />} />
+              <Route path="/estagios" element={<Internship />} />
+              <Route path="/contato" element={<Contact />} />
+            </Route>
 
-          <Route path="/admin" element={<Login />} />
+            <Route path="/admin" element={<Login />} />
 
-          <Route
-            path="/admin/dashboard"
-            element={
-              <ProtectedRoute>
-                <AdminLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate to="/admin/dashboard/courses" replace />} />
-            <Route path="courses" element={<CoursesManager />} />
-            <Route path="categories" element={<CategoriesManager />} />
-            <Route path="contacts" element={<ContactsManager />} />
-          </Route>
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProtectedRoute>
+                  <AdminLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate to="/admin/dashboard/courses" replace />} />
+              <Route path="courses" element={<CoursesManager />} />
+              <Route path="categories" element={<CategoriesManager />} />
+              <Route path="contacts" element={<ContactsManager />} />
+              <Route path="settings" element={<SettingsManager />} />
+            </Route>
 
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </TooltipProvider>
-    </BrowserRouter>
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </TooltipProvider>
+      </BrowserRouter>
+    </SettingsProvider>
   </AuthProvider>
 )
 
