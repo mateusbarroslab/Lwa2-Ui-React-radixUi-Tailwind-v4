@@ -15,6 +15,7 @@ import Contact from '@/pages/public/Contact'
 
 import Login from '@/pages/admin/Login'
 import CoursesManager from '@/pages/admin/CoursesManager'
+import CategoriesManager from '@/pages/admin/CategoriesManager'
 import ContactsManager from '@/pages/admin/ContactsManager'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -51,6 +52,7 @@ const App = () => (
           >
             <Route index element={<Navigate to="/admin/dashboard/courses" replace />} />
             <Route path="courses" element={<CoursesManager />} />
+            <Route path="categories" element={<CategoriesManager />} />
             <Route path="contacts" element={<ContactsManager />} />
           </Route>
 

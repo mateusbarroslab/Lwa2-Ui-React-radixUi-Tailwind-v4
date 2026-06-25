@@ -34,7 +34,9 @@ export function CourseForm({
     const subscription = form.watch((value, { name }) => {
       if (name === 'title' && !form.getFieldState('slug').isDirty) {
         const slug = value.title
-          ?.toLowerCase()
+          ?.normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
           .replace(/[^a-z0-9]+/g, '-')
           .replace(/(^-|-$)+/g, '')
         form.setValue('slug', slug || '')

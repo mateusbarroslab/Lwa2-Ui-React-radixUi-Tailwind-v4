@@ -9,7 +9,7 @@ export const courseFormSchema = z.object({
   short_description: z.string().optional(),
   description: z.string().min(1, 'Obrigatório'),
   workload: z.string().optional(),
-  category: z.string().min(1, 'Obrigatório'),
+  category_id: z.string().min(1, 'Obrigatório'),
   is_active: z.boolean(),
   curriculum: z.string().optional(),
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Plus, Edit, Trash2, Image as ImageIcon, Copy } from 'lucide-react'
+import { Plus, Edit, Trash2, Image as ImageIcon, Copy, Eye } from 'lucide-react'
 import {
   getAdminCourses,
   createCourse,
@@ -58,7 +58,7 @@ export default function CoursesManager() {
         short_description: course.short_description || '',
         description: course.description,
         workload: course.workload || '',
-        category: course.category || 'Other',
+        category_id: course.category_id || '',
         is_active: course.is_active,
         curriculum: course.curriculum || '',
         regulatory_title: course.regulatory_title || '',
@@ -88,7 +88,7 @@ export default function CoursesManager() {
         short_description: '',
         description: '',
         workload: '',
-        category: 'Other',
+        category_id: '',
         is_active: true,
         curriculum: '',
         regulatory_title: '',
@@ -169,7 +169,7 @@ export default function CoursesManager() {
       short_description: course.short_description || '',
       description: course.description,
       workload: course.workload || '',
-      category: course.category || 'Other',
+      category_id: course.category_id || '',
       is_active: false,
       curriculum: course.curriculum || '',
       regulatory_title: course.regulatory_title || '',
@@ -266,6 +266,11 @@ export default function CoursesManager() {
                     )}
                   </TableCell>
                   <TableCell className="text-right pr-4">
+                    <Button variant="ghost" size="icon" asChild title="Visualizar">
+                      <a href={`/cursos/${course.slug}`} target="_blank" rel="noopener noreferrer">
+                        <Eye className="h-4 w-4" />
+                      </a>
+                    </Button>
                     <Button
                       variant="ghost"
                       size="icon"

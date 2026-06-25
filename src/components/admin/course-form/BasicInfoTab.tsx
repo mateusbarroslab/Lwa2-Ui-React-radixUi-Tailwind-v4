@@ -11,6 +11,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
+import { useState, useEffect } from 'react'
+import { getCategories, Category } from '@/services/categories'
 
 export function BasicInfoTab({
   form,
@@ -20,6 +22,16 @@ export function BasicInfoTab({
   file: File | null
   setFile: (f: File | null) => void
 }) {
+  const [categories, setCategories] = useState<Category[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    getCategories()
+      .then(setCategories)
+      .catch(console.error)
+      .finally(() => setLoading(false))
+  }, [])
+
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
@@ -51,22 +63,24 @@ export function BasicInfoTab({
         />
         <FormField
           control={form.control}
-          name="category"
+          name="category_id"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Categoria</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value || ''}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue />
+                    <SelectValue
+                      placeholder={loading ? 'Carregando...' : 'Selecione uma categoria'}
+                    />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="Health">Saúde</SelectItem>
-                  <SelectItem value="Business">Negócios</SelectItem>
-                  <SelectItem value="Technology">Tecnologia</SelectItem>
-                  <SelectItem value="Industrial">Industrial</SelectItem>
-                  <SelectItem value="Other">Outros</SelectItem>
+                  {categories.map((cat) => (
+                    <SelectItem key={cat.id} value={cat.id}>
+                      {cat.name}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />

@@ -9,6 +9,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { useSEO } from '@/hooks/use-seo'
 import { useRealtime } from '@/hooks/use-realtime'
 import { getCourses, searchCourses, Course, getCourseImageUrl } from '@/services/courses'
+import { getCategories } from '@/services/categories'
 import { useDebounce } from '@/hooks/use-debounce'
 
 export default function Courses() {
@@ -18,8 +19,21 @@ export default function Courses() {
   )
 
   const [courses, setCourses] = useState<Course[]>([])
+  const [categoriesMap, setCategoriesMap] = useState<Record<string, string>>({})
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
+
+  useEffect(() => {
+    getCategories()
+      .then((cats) => {
+        const map: Record<string, string> = {}
+        cats.forEach((c) => {
+          map[c.id] = c.name
+        })
+        setCategoriesMap(map)
+      })
+      .catch(console.error)
+  }, [])
 
   // Create a custom debounce hook implementation inline since it might not exist
   const [debouncedSearch, setDebouncedSearch] = useState('')
@@ -102,7 +116,7 @@ export default function Courses() {
               key={course.id}
               className="group overflow-hidden flex flex-col hover:shadow-md transition-shadow"
             >
-              <div className="aspect-[16/9] relative overflow-hidden bg-muted">
+              <div className="aspect-video relative overflow-hidden bg-muted">
                 {course.image ? (
                   <img
                     src={getCourseImageUrl(course, course.image)}
@@ -116,7 +130,9 @@ export default function Courses() {
                 )}
                 <div className="absolute top-4 left-4">
                   <Badge variant="secondary" className="bg-background/80 backdrop-blur font-medium">
-                    {course.category}
+                    {course.expand?.category_id?.name ||
+                      categoriesMap[course.category_id] ||
+                      course.category}
                   </Badge>
                 </div>
               </div>

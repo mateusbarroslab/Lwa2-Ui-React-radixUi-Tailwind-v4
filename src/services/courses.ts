@@ -40,6 +40,14 @@ export interface Course extends RecordModel {
   regulatory_link_text?: string
   regulatory_url?: string
   category: string
+  category_id: string
+  expand?: {
+    category_id?: {
+      id: string
+      name: string
+      slug: string
+    }
+  }
   image: string
   curriculum?: string
   curriculum_json?: CourseModule[]
@@ -62,11 +70,14 @@ export const getCourses = async () => {
   return pb.collection<Course>('courses').getFullList({
     filter: 'is_active = true',
     sort: '-created',
+    expand: 'category_id',
   })
 }
 
 export const getCourseBySlug = async (slug: string) => {
-  return pb.collection<Course>('courses').getFirstListItem(`slug="${slug}" && is_active = true`)
+  return pb.collection<Course>('courses').getFirstListItem(`slug="${slug}" && is_active = true`, {
+    expand: 'category_id',
+  })
 }
 
 export const searchCourses = async (query: string) => {
@@ -79,7 +90,7 @@ export const searchCourses = async (query: string) => {
 }
 
 export const getAdminCourses = async () => {
-  return pb.collection<Course>('courses').getFullList({ sort: '-created' })
+  return pb.collection<Course>('courses').getFullList({ sort: '-created', expand: 'category_id' })
 }
 
 export const createCourse = async (data: FormData) => {

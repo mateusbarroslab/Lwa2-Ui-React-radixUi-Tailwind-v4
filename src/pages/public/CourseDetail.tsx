@@ -82,7 +82,7 @@ export default function CourseDetail() {
               <div className="space-y-4">
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="secondary" className="text-sm px-3 py-1">
-                    {course.category}
+                    {course.expand?.category_id?.name || course.category}
                   </Badge>
                   {course.regulatory_title && (
                     <Badge
@@ -130,7 +130,7 @@ export default function CourseDetail() {
               </div>
             </div>
 
-            <div className="relative aspect-[4/3] lg:aspect-square rounded-[2rem] overflow-hidden shadow-2xl border-4 border-background/50 ring-1 ring-border">
+            <div className="relative aspect-video rounded-[2rem] overflow-hidden shadow-2xl border-4 border-background/50 ring-1 ring-border">
               {course.image ? (
                 <img
                   src={getCourseImageUrl(course, course.image)}
