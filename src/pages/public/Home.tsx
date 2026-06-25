@@ -114,10 +114,10 @@ export default function Home() {
       <section className="container">
         <div className="rounded-3xl bg-secondary text-secondary-foreground p-8 md:p-16 text-center relative overflow-hidden">
           <div className="relative z-10 space-y-6 max-w-2xl mx-auto">
-            <h2 className="text-3xl font-bold md:text-4xl">Pronto para dar o próximo passo?</h2>
+            <h2 className="text-3xl font-bold md:text-4xl">Conheça nosso programa de estágios </h2>
             <p className="text-lg opacity-90">
-              Conheça nosso programa de estágios e veja como auxiliamos nossos alunos a conquistarem
-              a primeira vaga no mercado de trabalho.
+              Pronto para dar o próximo passo? veja como auxiliamos nossos alunos a conquistarem a
+              primeira vaga no mercado de trabalho.
             </p>
             <Button
               size="lg"

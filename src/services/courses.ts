@@ -106,5 +106,5 @@ export const deleteCourse = async (id: string) => {
 }
 
 export const getCourseImageUrl = (record: RecordModel, filename: string) => {
-  return pb.files.getUrl(record, filename)
+  return pb.files.getURL(record, filename)
 }

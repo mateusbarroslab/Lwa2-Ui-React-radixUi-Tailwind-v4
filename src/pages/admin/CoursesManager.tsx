@@ -125,6 +125,7 @@ export default function CoursesManager() {
       }
 
       Object.entries(toSend).forEach(([k, v]) => {
+        if (k === 'regulatory_url' && v === '') return // Omit empty URL to avoid PocketBase validation errors
         if (typeof v === 'boolean') formData.append(k, v ? 'true' : 'false')
         else if (typeof v === 'object') formData.append(k, JSON.stringify(v))
         else if (v !== undefined) formData.append(k, String(v))
@@ -244,11 +245,11 @@ export default function CoursesManager() {
                       <img
                         src={getCourseImageUrl(course, course.image)}
                         alt=""
-                        className="w-12 h-12 object-cover rounded-md border"
+                        className="w-16 h-9 object-cover rounded-md border"
                       />
                     ) : (
-                      <div className="w-12 h-12 bg-muted flex items-center justify-center rounded-md border">
-                        <ImageIcon className="h-5 w-5 text-muted-foreground/50" />
+                      <div className="w-16 h-9 bg-muted flex items-center justify-center rounded-md border">
+                        <ImageIcon className="h-4 w-4 text-muted-foreground/50" />
                       </div>
                     )}
                   </TableCell>
