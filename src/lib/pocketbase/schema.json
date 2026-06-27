@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T13:44:39.928Z",
+  "generatedAt": "2026-06-27T14:00:23.464Z",
   "collections": [
     {
       "name": "users",
@@ -403,6 +403,18 @@
           "required": false,
           "system": false,
           "autodateTriggers": ["onCreate", "onUpdate"]
+        },
+        {
+          "name": "hero_courses_image",
+          "type": "file",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "hero_internships_image",
+          "type": "file",
+          "required": false,
+          "system": false
         }
       ],
       "indexes": []

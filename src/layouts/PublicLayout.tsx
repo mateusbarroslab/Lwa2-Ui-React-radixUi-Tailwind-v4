@@ -126,7 +126,7 @@ export default function PublicLayout() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-secondary/50 py-12 md:py-16 border-[#d8d8d8] bg-[#fdfdfd]">
+      <footer className="bg-[#F2F2F2] py-12 md:py-16 border-t border-[#d8d8d8]">
         <div className="container grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-8">
           <div className="col-span-1 md:col-span-2 space-y-6">
             <Link to="/" className="inline-block">
