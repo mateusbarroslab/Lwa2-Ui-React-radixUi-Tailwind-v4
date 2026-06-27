@@ -116,8 +116,8 @@ export default function Home() {
           {[
             {
               icon: BookOpen,
-              title: 'Aulas Práticas',
-              desc: 'Laboratórios equipados para você vivenciar a rotina profissional desde o primeiro dia de aula.',
+              title: 'Aulas EAD',
+              desc: 'Você tem a flexibilidade de estudar no seu ritmo, adaptando o aprendizado à sua rotina. Reconhecido pelo MEC',
             },
             {
               icon: GraduationCap,
