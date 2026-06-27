@@ -121,7 +121,7 @@ export default function Home() {
             },
             {
               icon: GraduationCap,
-              title: 'Professores Especialistas',
+              title: 'Professores Especializados',
               desc: 'Corpo docente formado por profissionais que atuam no mercado e conhecem a realidade da profissão.',
             },
             {
