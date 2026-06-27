@@ -3,7 +3,6 @@ import {
   ArrowRight,
   GraduationCap,
   Briefcase,
-  CheckCircle2,
   BookOpen,
   Users,
   TrendingUp,
@@ -22,9 +21,9 @@ export default function Home() {
   )
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-muted/30 pt-24 pb-16 lg:pb-32">
+      <section className="relative overflow-hidden pt-24 pb-16 lg:pb-32 bg-white">
         <div className="container text-center max-w-4xl mx-auto space-y-8 animate-fade-in flex flex-col items-center">
           <div className="inline-flex items-center rounded-full bg-white px-4 py-1.5 text-sm font-semibold border shadow-sm">
             <span className="text-muted-foreground mr-2">Em parceria com</span>
@@ -46,8 +45,7 @@ export default function Home() {
 
         <div className="container mt-16 grid lg:grid-cols-2 gap-8 relative z-10 animate-slide-up">
           {/* Card 1: Cursos Técnicos */}
-          <div className="rounded-3xl border bg-card p-8 md:p-12 shadow-xl shadow-primary/5 flex flex-col items-start space-y-6 relative overflow-hidden group hover:border-primary/50 transition-colors">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
+          <div className="rounded-3xl border bg-white p-8 md:p-12 shadow-xl shadow-primary/5 flex flex-col items-start space-y-6 relative overflow-hidden group hover:border-primary/50 transition-all hover:shadow-2xl hover:shadow-primary/10">
             <div className="p-4 bg-primary/10 text-primary rounded-2xl">
               <GraduationCap className="h-8 w-8" />
             </div>
@@ -64,10 +62,9 @@ export default function Home() {
           </div>
 
           {/* Card 2: Programa de Estágios */}
-          <div className="rounded-3xl border bg-card p-8 md:p-12 shadow-xl flex flex-col items-start space-y-6 relative overflow-hidden group hover:border-border transition-colors">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-secondary rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
+          <div className="rounded-3xl border bg-white p-8 md:p-12 shadow-xl shadow-primary/5 flex flex-col items-start space-y-6 relative overflow-hidden group hover:border-primary/50 transition-all hover:shadow-2xl hover:shadow-primary/10">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full gap-4">
-              <div className="p-4 bg-secondary text-foreground rounded-2xl shrink-0">
+              <div className="p-4 bg-primary/10 text-primary rounded-2xl shrink-0">
                 <Briefcase className="h-8 w-8" />
               </div>
               <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border shadow-sm text-xs font-bold uppercase tracking-wider">
@@ -84,7 +81,12 @@ export default function Home() {
               Para estudantes, empresas e instituições que buscam uma ponte segura com o mercado de
               trabalho.
             </p>
-            <Button size="lg" asChild variant="outline" className="w-full sm:w-auto font-semibold">
+            <Button
+              size="lg"
+              asChild
+              variant="outline"
+              className="w-full sm:w-auto font-semibold text-primary border-primary hover:bg-primary hover:text-white"
+            >
               <Link to="/estagios">
                 Conhecer Programa de Estágios <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
@@ -93,67 +95,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Escolha seu Caminho Section */}
-      <section className="container py-24">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Escolha seu Caminho</h2>
-          <p className="text-lg text-muted-foreground max-w-[600px] mx-auto">
-            Descubra as vantagens de cada modalidade e dê o próximo passo na sua jornada.
-          </p>
-        </div>
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-          {/* Block 1 */}
-          <div className="space-y-8 p-8 md:p-10 rounded-3xl bg-secondary/50 border hover:shadow-md transition-shadow">
-            <h3 className="text-2xl font-bold flex items-center gap-3">
-              <GraduationCap className="h-7 w-7 text-primary" /> Cursos Técnicos
-            </h3>
-            <ul className="space-y-5">
-              {[
-                'Formação prática',
-                'Cursos reconhecidos',
-                'Professores especialistas',
-                'Conteúdo voltado ao mercado',
-                'Válido em todo o Brasil',
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-4">
-                  <CheckCircle2 className="h-6 w-6 text-primary shrink-0" />
-                  <span className="text-muted-foreground font-medium text-lg">{item}</span>
-                </li>
-              ))}
-            </ul>
-            <Button asChild size="lg" className="w-full">
-              <Link to="/cursos">Encontrar meu curso</Link>
-            </Button>
-          </div>
-
-          {/* Block 2 */}
-          <div className="space-y-8 p-8 md:p-10 rounded-3xl bg-secondary/50 border hover:shadow-md transition-shadow">
-            <h3 className="text-2xl font-bold flex items-center gap-3">
-              <Briefcase className="h-7 w-7 text-foreground" /> Programa de Estágios CEINEE
-            </h3>
-            <ul className="space-y-5">
-              {[
-                'Integração entre estudantes e empresas',
-                'Apoio para instituições de ensino',
-                'Apoio para empresas contratantes',
-                'Conformidade com a Lei do Estágio',
-                'Encaminhamento para oportunidades',
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-4">
-                  <CheckCircle2 className="h-6 w-6 text-foreground shrink-0" />
-                  <span className="text-muted-foreground font-medium text-lg">{item}</span>
-                </li>
-              ))}
-            </ul>
-            <Button asChild size="lg" variant="outline" className="w-full">
-              <Link to="/estagios">Quero conhecer o programa</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
       {/* Como a Parceria Funciona Section */}
-      <section className="bg-muted/30 py-24 border-y">
+      <section className="bg-white py-24 relative">
         <div className="container">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -168,7 +111,7 @@ export default function Home() {
             <div className="hidden md:block absolute top-12 left-[15%] right-[15%] h-0.5 bg-border z-0" />
 
             <div className="relative z-10 flex flex-col items-center text-center space-y-5">
-              <div className="w-24 h-24 rounded-full bg-background border-4 border-primary flex items-center justify-center text-primary shadow-xl">
+              <div className="w-24 h-24 rounded-full bg-white border-4 border-primary flex items-center justify-center text-primary shadow-xl">
                 <BookOpen className="h-10 w-10" />
               </div>
               <h3 className="text-2xl font-bold">1. Você se qualifica</h3>
@@ -179,7 +122,7 @@ export default function Home() {
             </div>
 
             <div className="relative z-10 flex flex-col items-center text-center space-y-5">
-              <div className="w-24 h-24 rounded-full bg-background border-4 border-muted flex items-center justify-center text-foreground shadow-xl">
+              <div className="w-24 h-24 rounded-full bg-white border-4 border-primary/50 flex items-center justify-center text-primary shadow-xl">
                 <Users className="h-10 w-10" />
               </div>
               <h3 className="text-2xl font-bold">2. Você se conecta</h3>
@@ -189,7 +132,7 @@ export default function Home() {
             </div>
 
             <div className="relative z-10 flex flex-col items-center text-center space-y-5">
-              <div className="w-24 h-24 rounded-full bg-background border-4 border-primary/50 flex items-center justify-center text-primary shadow-xl">
+              <div className="w-24 h-24 rounded-full bg-white border-4 border-primary flex items-center justify-center text-primary shadow-xl">
                 <TrendingUp className="h-10 w-10" />
               </div>
               <h3 className="text-2xl font-bold">3. Você avança</h3>
@@ -204,7 +147,7 @@ export default function Home() {
 
       {/* CEINEE Authority Section */}
       <section className="container py-24">
-        <div className="rounded-[2.5rem] bg-white border shadow-2xl overflow-hidden relative">
+        <div className="rounded-[2.5rem] bg-white border shadow-2xl shadow-primary/5 overflow-hidden relative">
           <div className="relative z-10 p-8 md:p-16 flex flex-col lg:flex-row items-center justify-between gap-12">
             <div className="flex-1 space-y-8 text-center lg:text-left">
               <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-foreground">
@@ -247,31 +190,31 @@ export default function Home() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="p-8 md:p-10 rounded-[2rem] bg-card border hover:shadow-xl hover:border-primary/30 transition-all text-center flex flex-col items-center group">
+          <div className="p-8 md:p-10 rounded-[2rem] bg-white border shadow-lg shadow-primary/5 hover:shadow-xl hover:border-primary/30 transition-all text-center flex flex-col items-center group">
             <div className="p-5 bg-primary/10 rounded-full mb-6 text-primary group-hover:scale-110 transition-transform">
               <UserCircle2 className="h-10 w-10" />
             </div>
-            <h3 className="text-2xl font-bold mb-4">Estudantes</h3>
+            <h3 className="text-2xl font-bold mb-4">Para estudantes</h3>
             <p className="text-muted-foreground leading-relaxed text-lg">
               Cursos técnicos e oportunidades de estágio para começar ou evoluir na carreira.
             </p>
           </div>
 
-          <div className="p-8 md:p-10 rounded-[2rem] bg-card border hover:shadow-xl hover:border-border transition-all text-center flex flex-col items-center group">
-            <div className="p-5 bg-muted rounded-full mb-6 text-foreground group-hover:scale-110 transition-transform">
+          <div className="p-8 md:p-10 rounded-[2rem] bg-white border shadow-lg shadow-primary/5 hover:shadow-xl hover:border-primary/30 transition-all text-center flex flex-col items-center group">
+            <div className="p-5 bg-primary/10 rounded-full mb-6 text-primary group-hover:scale-110 transition-transform">
               <Building2 className="h-10 w-10" />
             </div>
-            <h3 className="text-2xl font-bold mb-4">Empresas</h3>
+            <h3 className="text-2xl font-bold mb-4">Para empresas</h3>
             <p className="text-muted-foreground leading-relaxed text-lg">
               Apoio na conexão com estudantes e no processo de estágio.
             </p>
           </div>
 
-          <div className="p-8 md:p-10 rounded-[2rem] bg-card border hover:shadow-xl hover:border-border transition-all text-center flex flex-col items-center group">
-            <div className="p-5 bg-muted rounded-full mb-6 text-foreground group-hover:scale-110 transition-transform">
+          <div className="p-8 md:p-10 rounded-[2rem] bg-white border shadow-lg shadow-primary/5 hover:shadow-xl hover:border-primary/30 transition-all text-center flex flex-col items-center group">
+            <div className="p-5 bg-primary/10 rounded-full mb-6 text-primary group-hover:scale-110 transition-transform">
               <Landmark className="h-10 w-10" />
             </div>
-            <h3 className="text-2xl font-bold mb-4">Instituições</h3>
+            <h3 className="text-2xl font-bold mb-4">Para instituições</h3>
             <p className="text-muted-foreground leading-relaxed text-lg">
               Parceria para fortalecer a formação prática e a visibilidade institucional.
             </p>
@@ -296,7 +239,7 @@ export default function Home() {
               asChild
               size="lg"
               variant="outline"
-              className="font-bold h-14 px-8 text-lg text-primary hover:text-primary"
+              className="font-bold h-14 px-8 text-lg text-primary hover:text-primary bg-white border-white"
             >
               <Link to="/estagios">Conhecer Programa de Estágios</Link>
             </Button>
