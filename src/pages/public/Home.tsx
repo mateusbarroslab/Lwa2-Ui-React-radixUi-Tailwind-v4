@@ -26,7 +26,7 @@ export default function Home() {
       <section className="relative overflow-hidden pt-24 pb-16 lg:pb-32 bg-[#fafafa]">
         <div className="container text-center max-w-4xl mx-auto space-y-6 animate-fade-in flex flex-col items-center">
           <div className="inline-flex items-center rounded-full bg-white px-4 py-1.5 text-sm font-semibold border shadow-sm">
-            <span className="text-muted-foreground mr-2">Em parceria com</span>
+            <span className="text-muted-foreground mr-2">Em parceria com CEINEE</span>
             <img
               src={logoCeinee}
               alt="CEINEE"
@@ -98,7 +98,7 @@ export default function Home() {
                   </div>
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                  Programa de Estágios
+                  Programa de Estágios&nbsp;
                 </h2>
                 <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
                   Para estudantes, empresas e instituições que buscam uma ponte segura com o mercado
