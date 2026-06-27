@@ -23,8 +23,8 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-24 pb-16 lg:pb-32 bg-white">
-        <div className="container text-center max-w-4xl mx-auto space-y-8 animate-fade-in flex flex-col items-center">
+      <section className="relative overflow-hidden pt-24 pb-16 lg:pb-32 bg-[#fafafa]">
+        <div className="container text-center max-w-4xl mx-auto space-y-6 animate-fade-in flex flex-col items-center">
           <div className="inline-flex items-center rounded-full bg-white px-4 py-1.5 text-sm font-semibold border shadow-sm">
             <span className="text-muted-foreground mr-2">Em parceria com</span>
             <img
@@ -34,63 +34,88 @@ export default function Home() {
             />
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
-            Sua formação. Seu estágio.{' '}
+            Sua formação. Seu estágio.
+            <br className="hidden sm:block" />
             <span className="text-primary block sm:inline">Sua primeira conquista.</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
             Cursos técnicos reconhecidos e programa de estágios em parceria com a CEINEE para
             aproximar estudantes, empresas e oportunidades.
           </p>
         </div>
 
-        <div className="container mt-16 grid lg:grid-cols-2 gap-8 relative z-10 animate-slide-up">
+        <div className="container mt-12 md:mt-16 grid lg:grid-cols-2 gap-6 md:gap-8 relative z-10 animate-slide-up">
           {/* Card 1: Cursos Técnicos */}
-          <div className="rounded-3xl border bg-white p-8 md:p-12 shadow-xl shadow-primary/5 flex flex-col items-start space-y-6 relative overflow-hidden group hover:border-primary/50 transition-all hover:shadow-2xl hover:shadow-primary/10">
-            <div className="p-4 bg-primary/10 text-primary rounded-2xl">
-              <GraduationCap className="h-8 w-8" />
+          <div className="rounded-[2rem] overflow-hidden relative group min-h-[450px] md:min-h-[500px] flex items-end shadow-lg shadow-primary/5">
+            <img
+              src="https://img.usecurling.com/p/800/600?q=student%20learning"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              alt="Estudante aprendendo"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+            <div className="relative z-10 p-4 sm:p-6 md:p-8 w-full">
+              <div className="bg-white rounded-3xl p-6 md:p-8 shadow-2xl flex flex-col items-start gap-4">
+                <div className="p-3 bg-orange-100 text-primary rounded-xl">
+                  <GraduationCap className="h-6 w-6" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground">Cursos Técnicos</h2>
+                <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
+                  Para quem quer se qualificar profissionalmente e conquistar novas oportunidades no
+                  mercado.
+                </p>
+                <Button
+                  size="lg"
+                  asChild
+                  className="w-full sm:w-auto font-bold bg-primary text-white hover:bg-primary/90 rounded-full mt-2"
+                >
+                  <Link to="/cursos">
+                    Ver Cursos Técnicos <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
             </div>
-            <h2 className="text-3xl font-bold">Cursos Técnicos</h2>
-            <p className="text-lg text-muted-foreground flex-1">
-              Para quem quer se qualificar profissionalmente e conquistar novas oportunidades no
-              mercado.
-            </p>
-            <Button size="lg" asChild className="w-full sm:w-auto font-semibold">
-              <Link to="/cursos">
-                Ver Cursos Técnicos <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
           </div>
 
           {/* Card 2: Programa de Estágios */}
-          <div className="rounded-3xl border bg-white p-8 md:p-12 shadow-xl shadow-primary/5 flex flex-col items-start space-y-6 relative overflow-hidden group hover:border-primary/50 transition-all hover:shadow-2xl hover:shadow-primary/10">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full gap-4">
-              <div className="p-4 bg-primary/10 text-primary rounded-2xl shrink-0">
-                <Briefcase className="h-8 w-8" />
-              </div>
-              <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border shadow-sm text-xs font-bold uppercase tracking-wider">
-                <img
-                  src={logoCeinee}
-                  alt="CEINEE"
-                  className="h-4 w-auto rounded-sm mix-blend-multiply"
-                />
-                <span className="text-foreground">Programa oficial de estágios</span>
+          <div className="rounded-[2rem] overflow-hidden relative group min-h-[450px] md:min-h-[500px] flex items-end shadow-lg shadow-primary/5">
+            <img
+              src="https://img.usecurling.com/p/800/600?q=professional%20handshake"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              alt="Profissionais fechando parceria"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+            <div className="relative z-10 p-4 sm:p-6 md:p-8 w-full">
+              <div className="bg-white rounded-3xl p-6 md:p-8 shadow-2xl flex flex-col items-start gap-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full gap-4">
+                  <div className="p-3 bg-orange-100 text-primary rounded-xl shrink-0 w-fit">
+                    <Briefcase className="h-6 w-6" />
+                  </div>
+                  <div className="flex items-center gap-2 bg-[#fffbcc] px-3 py-1.5 rounded-full border border-yellow-200 text-[11px] font-bold uppercase tracking-wider text-yellow-800">
+                    <span className="text-yellow-600">⚠</span>
+                    <span>Programa Oficial de Estágios</span>
+                  </div>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+                  Programa de Estágios
+                </h2>
+                <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
+                  Para estudantes, empresas e instituições que buscam uma ponte segura com o mercado
+                  de trabalho.
+                </p>
+                <Button
+                  size="lg"
+                  asChild
+                  variant="outline"
+                  className="w-full sm:w-auto font-bold text-primary border-primary hover:bg-primary hover:text-white rounded-full mt-2 bg-white"
+                >
+                  <Link to="/estagios">
+                    Conhecer Programa de Estágios <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
               </div>
             </div>
-            <h2 className="text-3xl font-bold">Programa de Estágios</h2>
-            <p className="text-lg text-muted-foreground flex-1">
-              Para estudantes, empresas e instituições que buscam uma ponte segura com o mercado de
-              trabalho.
-            </p>
-            <Button
-              size="lg"
-              asChild
-              variant="outline"
-              className="w-full sm:w-auto font-semibold text-primary border-primary hover:bg-primary hover:text-white"
-            >
-              <Link to="/estagios">
-                Conhecer Programa de Estágios <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
           </div>
         </div>
       </section>
