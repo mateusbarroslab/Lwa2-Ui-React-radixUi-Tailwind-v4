@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Cursos Técnicos', href: '/cursos' },
   { label: 'Programa de Estágios', href: '/estagios' },
+  { label: 'Para Empresas', href: '/para-empresas' },
   { label: 'Contato', href: '/contato' },
 ]
 
@@ -18,6 +19,8 @@ export default function PublicLayout() {
   const location = useLocation()
   const { isAuthenticated } = useAuth()
   const { settings } = useSettingsContext()
+
+  const isCourseDetail = /^\/cursos\/[^/]+/.test(location.pathname)
 
   const whatsappUrl = settings?.whatsapp
     ? `https://wa.me/${settings.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent('Olá, gostaria de saber mais sobre a Primeira Conquista.')}`
@@ -209,7 +212,10 @@ export default function PublicLayout() {
         href={whatsappUrl}
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white shadow-lg transition-transform hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+        className={cn(
+          'fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white shadow-lg transition-transform hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2',
+          isCourseDetail && 'hidden lg:flex',
+        )}
         aria-label="Falar no WhatsApp"
       >
         <MessageCircle className="h-7 w-7" />
