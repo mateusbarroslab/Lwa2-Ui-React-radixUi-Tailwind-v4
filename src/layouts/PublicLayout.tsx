@@ -23,6 +23,8 @@ export default function PublicLayout() {
     ? `https://wa.me/${settings.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent('Olá, gostaria de saber mais sobre a Primeira Conquista.')}`
     : `https://wa.me/5524992934189?text=${encodeURIComponent('Olá, gostaria de saber mais sobre a Primeira Conquista.')}`
 
+  const isCourseDetail = location.pathname.match(/^\/cursos\/[^/]+$/)
+
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -209,7 +211,10 @@ export default function PublicLayout() {
         href={whatsappUrl}
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white shadow-lg transition-transform hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+        className={cn(
+          'fixed bottom-6 right-6 z-50 h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white shadow-lg transition-transform hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2',
+          isCourseDetail ? 'hidden lg:flex' : 'flex',
+        )}
         aria-label="Falar no WhatsApp"
       >
         <MessageCircle className="h-7 w-7" />
