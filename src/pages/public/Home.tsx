@@ -110,7 +110,7 @@ export default function Home() {
                   variant="outline"
                   className="w-full sm:w-auto font-bold text-primary border-primary hover:bg-primary hover:text-white rounded-full mt-2 bg-white"
                 >
-                  <Link to="/estagios">
+                  <Link className="mt-[0.5px] pl-[1px]" to="/estagios">
                     Conhecer Programa de Estágios <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
