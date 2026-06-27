@@ -21,8 +21,13 @@ export default function Home() {
                 Matrículas Abertas 2026
               </div>
               <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl text-foreground">
-                Sua carreira técnica começa na{' '}
-                <span className="text-primary">Primeira Conquista</span>
+                <span>Sua formação</span>
+                <div>
+                  <span>Seu estágio</span>
+                  <div>
+                    Sua&nbsp;<span className="text-primary">Primeira Conquista</span>
+                  </div>
+                </div>
               </h1>
               <p className="text-lg text-muted-foreground max-w-[600px]">
                 Cursos técnicos focados na prática e nas necessidades do mercado de trabalho.
