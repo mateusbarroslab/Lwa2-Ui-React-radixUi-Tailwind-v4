@@ -35,7 +35,7 @@ export default function PublicLayout() {
     { name: 'Contato', path: '/contato' },
   ]
 
-  const isCourseDetail = location.pathname.startsWith('/cursos/')
+  const isCourseDetail = Boolean(location.pathname.match(/^\/cursos\/[^/]+$/))
   const whatsappUrl = settings?.whatsapp
     ? `https://wa.me/${settings.whatsapp.replace(/\D/g, '')}`
     : 'https://wa.me/5524992934189'
