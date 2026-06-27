@@ -30,6 +30,8 @@ export default function SettingsManager() {
   const [submitting, setSubmitting] = useState(false)
   const [logoHeader, setLogoHeader] = useState<File | null>(null)
   const [logoFooter, setLogoFooter] = useState<File | null>(null)
+  const [heroCoursesImage, setHeroCoursesImage] = useState<File | null>(null)
+  const [heroInternshipsImage, setHeroInternshipsImage] = useState<File | null>(null)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -75,11 +77,15 @@ export default function SettingsManager() {
 
       if (logoHeader) formData.append('logo_header', logoHeader)
       if (logoFooter) formData.append('logo_footer', logoFooter)
+      if (heroCoursesImage) formData.append('hero_courses_image', heroCoursesImage)
+      if (heroInternshipsImage) formData.append('hero_internships_image', heroInternshipsImage)
 
       await updateSettings(settings.id, formData)
       toast({ title: 'Sucesso', description: 'Configurações atualizadas com sucesso!' })
       setLogoHeader(null)
       setLogoFooter(null)
+      setHeroCoursesImage(null)
+      setHeroInternshipsImage(null)
       loadSettings()
     } catch (error) {
       toast({ title: 'Erro', description: 'Falha ao salvar configurações', variant: 'destructive' })
@@ -178,6 +184,61 @@ export default function SettingsManager() {
         </Form>
 
         <div className="space-y-6">
+          <div className="bg-card border rounded-2xl p-6 shadow-sm">
+            <h2 className="text-xl font-semibold mb-4">Imagens da Home (Hero)</h2>
+            <div className="flex flex-col gap-6">
+              <div className="space-y-2">
+                <FormLabel>Cursos Técnicos</FormLabel>
+                {settings.hero_courses_image && !heroCoursesImage && (
+                  <div className="p-4 bg-muted/50 rounded-lg flex items-center justify-center h-32 border border-dashed">
+                    <img
+                      src={getSettingsImageUrl(settings, settings.hero_courses_image)}
+                      alt="Cursos Técnicos"
+                      className="max-h-24 max-w-full object-contain"
+                    />
+                  </div>
+                )}
+                {heroCoursesImage && (
+                  <div className="p-4 bg-primary/10 border border-primary/20 rounded-lg text-sm text-center">
+                    Nova imagem selecionada:{' '}
+                    <span className="font-semibold">{heroCoursesImage.name}</span>
+                  </div>
+                )}
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setHeroCoursesImage(e.target.files?.[0] || null)}
+                  className="cursor-pointer"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <FormLabel>Programa de Estágios</FormLabel>
+                {settings.hero_internships_image && !heroInternshipsImage && (
+                  <div className="p-4 bg-muted/50 rounded-lg flex items-center justify-center h-32 border border-dashed">
+                    <img
+                      src={getSettingsImageUrl(settings, settings.hero_internships_image)}
+                      alt="Programa de Estágios"
+                      className="max-h-24 max-w-full object-contain"
+                    />
+                  </div>
+                )}
+                {heroInternshipsImage && (
+                  <div className="p-4 bg-primary/10 border border-primary/20 rounded-lg text-sm text-center">
+                    Nova imagem selecionada:{' '}
+                    <span className="font-semibold">{heroInternshipsImage.name}</span>
+                  </div>
+                )}
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setHeroInternshipsImage(e.target.files?.[0] || null)}
+                  className="cursor-pointer"
+                />
+              </div>
+            </div>
+          </div>
+
           <div className="bg-card border rounded-2xl p-6 shadow-sm">
             <h2 className="text-xl font-semibold mb-4">Logo do Cabeçalho</h2>
             <div className="flex flex-col gap-4">

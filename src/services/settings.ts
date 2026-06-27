@@ -10,6 +10,8 @@ export interface Settings {
   address: string
   logo_header: string
   logo_footer: string
+  hero_courses_image?: string
+  hero_internships_image?: string
   created: string
   updated: string
 }

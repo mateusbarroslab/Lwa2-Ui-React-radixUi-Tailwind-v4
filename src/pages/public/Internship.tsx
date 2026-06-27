@@ -2,28 +2,7 @@ import { CheckCircle2, GraduationCap, Building2, BookOpen, MessageCircle } from 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useSEO } from '@/hooks/use-seo'
-
-const CeineeLogo = ({ className = 'w-32 h-32' }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" className={className}>
-    {/* Head */}
-    <circle cx="150" cy="70" r="50" fill="#FFED00" stroke="#000" strokeWidth="8" />
-    {/* Mask under head */}
-    <path d="M 108 90 C 120 120 180 120 192 90 Z" fill="#000" />
-    {/* Arms embracing */}
-    <path
-      d="M 150 130 C 50 130 20 200 35 280 C 37 290 50 290 55 280 C 70 220 90 165 150 165 C 210 165 230 220 245 280 C 250 290 263 290 265 280 C 280 200 250 130 150 130 Z"
-      fill="#FFED00"
-      stroke="#000"
-      strokeWidth="8"
-      strokeLinejoin="round"
-    />
-    {/* Globe */}
-    <circle cx="150" cy="215" r="60" fill="#000" stroke="#000" strokeWidth="4" />
-    {/* Map details */}
-    <path d="M 120 170 Q 150 160 160 190 T 130 240 Q 100 210 120 170 Z" fill="#FFED00" />
-    <path d="M 175 185 Q 200 180 190 220 Q 170 230 175 185 Z" fill="#FFED00" />
-  </svg>
-)
+import logoCeinee from '@/assets/logo-ciene-2ed4a.jpg'
 
 export default function Internship() {
   useSEO(
@@ -44,8 +23,12 @@ export default function Internship() {
           </div>
 
           <div className="flex justify-center mb-6">
-            <div className="bg-white p-4 rounded-full inline-flex items-center justify-center shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-4 border-black w-40 h-40">
-              <CeineeLogo className="w-full h-full" />
+            <div className="bg-white p-4 rounded-full inline-flex items-center justify-center shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-4 border-black w-40 h-40 overflow-hidden">
+              <img
+                src={logoCeinee}
+                alt="CEINEE"
+                className="w-full h-full object-cover rounded-full"
+              />
             </div>
           </div>
 
@@ -53,8 +36,8 @@ export default function Internship() {
             Conheça a Ceinee
           </h1>
           <p className="text-xl md:text-2xl font-medium opacity-90 leading-relaxed max-w-3xl mx-auto">
-            O CEINEE uma instituição que visa promover integração entre Estudantes, Instituições
-            Educacionais, Empresariais e Comunitárias...
+            O CEINEE é uma instituição que visa promover integração entre Estudantes, Instituições
+            Educacionais, Empresariais e Comunitárias.
           </p>
           <div className="pt-6">
             <div className="inline-block bg-black text-[#FFED00] px-8 py-4 rounded-full text-xl font-black shadow-xl transform transition-transform hover:scale-105 border-4 border-black">
@@ -87,7 +70,7 @@ export default function Internship() {
             </CardHeader>
             <CardContent className="space-y-4 pt-6">
               <ul className="space-y-4">
-                {['Bolsa auxílio', 'Auxílio transporte', 'treinamento profissional'].map(
+                {['Bolsa auxílio', 'Auxílio transporte', 'Treinamento profissional'].map(
                   (item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <CheckCircle2 className="h-6 w-6 text-black shrink-0 mt-0.5" />
