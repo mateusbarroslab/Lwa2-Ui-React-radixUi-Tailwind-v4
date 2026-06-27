@@ -35,8 +35,10 @@ export default function Home() {
             Sua <span className="text-primary">Primeira Conquista</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-[700px] md:mx-0 mx-auto">
-            Cursos técnicos focados na prática e nas necessidades do mercado de trabalho.
-            Professores qualificados, laboratórios modernos e encaminhamento para estágios.
+            <span>
+              Cursos técnicos reconhecidos pelo MEC e Programa de Estágios em parceria com CEINEE
+              para aproximar estudantes, empresas e oportunidades.
+            </span>
           </p>
         </div>
 
@@ -79,8 +81,10 @@ export default function Home() {
             <div className="relative z-10 bg-background rounded-2xl p-6 md:p-8 shadow-xl">
               <h3 className="text-2xl font-bold mb-2">Programa de Estágios</h3>
               <p className="text-muted-foreground mb-6 text-sm md:text-base">
-                Parcerias exclusivas com empresas da região para acelerar sua inserção no mercado
-                profissional.
+                <span>
+                  Para estudantes, empresas e instituições que buscam uma ponte segura com o mercado
+                  de trabalho.
+                </span>
               </p>
               <Button
                 size="lg"
