@@ -1,4 +1,4 @@
-onRecordCreate((e) => {
+onRecordAfterCreateSuccess((e) => {
   const recipientEmail = 'contato@primeiraconquista.com.br'
   const senderName = $secrets.get('SMTP_SENDER_NAME') || 'Site Primeira Conquista'
   const senderAddress =
@@ -34,6 +34,8 @@ onRecordCreate((e) => {
     'Mensagem: ' + messageText,
   ].join('\n')
 
+  const emailHtml = emailContent.replace(/\n/g, '<br>')
+
   $app
     .logger()
     .info(
@@ -55,13 +57,24 @@ onRecordCreate((e) => {
     )
 
   try {
-    const msg = new Message({
-      from: { name: senderName, address: senderAddress },
-      to: [{ address: recipientEmail }],
-      subject: emailSubject,
-      text: emailContent,
-      html: emailContent.replace(/\n/g, '<br>'),
-    })
+    let msg
+    if (typeof Message !== 'undefined') {
+      msg = new Message({
+        from: { name: senderName, address: senderAddress },
+        to: [{ address: recipientEmail }],
+        subject: emailSubject,
+        text: emailContent,
+        html: emailHtml,
+      })
+    } else {
+      msg = {
+        from: { name: senderName, address: senderAddress },
+        to: [{ address: recipientEmail }],
+        subject: emailSubject,
+        text: emailContent,
+        html: emailHtml,
+      }
+    }
     $app.newMailClient().send(msg)
   } catch (err) {
     $app
@@ -77,7 +90,6 @@ onRecordCreate((e) => {
         'to',
         recipientEmail,
       )
-    throw new BadRequestError('Falha ao enviar notificação por e-mail: ' + err.message)
   }
 
   return e.next()
