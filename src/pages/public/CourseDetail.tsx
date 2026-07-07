@@ -88,7 +88,7 @@ export default function CourseDetail() {
             className="mb-8 -ml-2 sm:-ml-4 text-muted-foreground hover:text-foreground"
           >
             <Link to="/cursos">
-              <Icons.ArrowLeft className="mr-2 h-4 w-4" /> Voltar para Cursos
+              <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para Cursos
             </Link>
           </Button>
 
@@ -104,12 +104,12 @@ export default function CourseDetail() {
                       variant="outline"
                       className="border-primary/30 text-primary bg-primary/5 px-3 py-1"
                     >
-                      <Icons.Award className="w-3 h-3 mr-1.5" /> {course.regulatory_title}
+                      <Award className="w-3 h-3 mr-1.5" /> {course.regulatory_title}
                     </Badge>
                   )}
                   {course.workload && (
                     <Badge variant="outline" className="px-3 py-1">
-                      <Icons.Clock className="w-3 h-3 mr-1.5" /> {course.workload}
+                      <Clock className="w-3 h-3 mr-1.5" /> {course.workload}
                     </Badge>
                   )}
                 </div>
@@ -130,7 +130,7 @@ export default function CourseDetail() {
                   asChild
                 >
                   <a href={wppUrl} target="_blank" rel="noreferrer">
-                    <Icons.MessageCircle className="mr-2 h-6 w-6" /> Falar no WhatsApp
+                    <MessageCircle className="mr-2 h-6 w-6" /> Falar no WhatsApp
                   </a>
                 </Button>
 
@@ -156,7 +156,7 @@ export default function CourseDetail() {
                 />
               ) : (
                 <div className="w-full h-full bg-muted flex items-center justify-center">
-                  <Icons.GraduationCap className="h-32 w-32 text-muted-foreground/20" />
+                  <GraduationCap className="h-32 w-32 text-muted-foreground/20" />
                 </div>
               )}
             </div>
@@ -189,7 +189,7 @@ export default function CourseDetail() {
                 className="hidden lg:inline-flex w-full h-14 text-lg font-bold bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg"
               >
                 <a href={wppUrl} target="_blank" rel="noreferrer">
-                  <Icons.MessageCircle className="mr-2 h-5 w-5" /> Garantir Vaga
+                  <MessageCircle className="mr-2 h-5 w-5" /> Garantir Vaga
                 </a>
               </Button>
               <button
@@ -260,7 +260,7 @@ export default function CourseDetail() {
             {course.technical_skill_title && (
               <section className="bg-slate-900 dark:bg-slate-950 text-white rounded-3xl p-8 md:p-12 shadow-xl overflow-hidden relative">
                 <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
-                  <Icons.Award className="w-64 h-64" />
+                  <Award className="w-64 h-64" />
                 </div>
                 <div className="relative z-10">
                   <h3 className="text-xl md:text-2xl font-bold text-primary mb-3">
@@ -281,7 +281,7 @@ export default function CourseDetail() {
             {/* About Course */}
             <section className="space-y-8">
               <h2 className="text-2xl sm:text-3xl font-bold tracking-tight flex items-center gap-3">
-                <Icons.Info className="h-8 w-8 text-primary shrink-0" /> Sobre o Curso
+                <Info className="h-8 w-8 text-primary shrink-0" /> Sobre o Curso
               </h2>
               <div
                 className="prose prose-slate prose-orange dark:prose-invert max-w-none text-base sm:text-lg text-muted-foreground leading-relaxed break-words overflow-hidden"
@@ -294,7 +294,7 @@ export default function CourseDetail() {
               <section className="w-full bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 overflow-hidden">
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 w-full">
                   <div className="h-12 w-12 sm:h-16 sm:w-16 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0">
-                    <Icons.Landmark className="h-6 w-6 sm:h-8 sm:w-8" />
+                    <Landmark className="h-6 w-6 sm:h-8 sm:w-8" />
                   </div>
                   <div className="flex-1 min-w-0 w-full">
                     <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 break-words">
@@ -323,7 +323,7 @@ export default function CourseDetail() {
                         <span className="break-words line-clamp-2">
                           {course.regulatory_link_text}
                         </span>
-                        <Icons.ExternalLink className="ml-2 h-4 w-4 shrink-0" />
+                        <ExternalLink className="ml-2 h-4 w-4 shrink-0" />
                       </a>
                     </Button>
                   )}
@@ -335,7 +335,7 @@ export default function CourseDetail() {
             {course.curriculum_json && course.curriculum_json.length > 0 && (
               <section className="space-y-6 sm:space-y-8 w-full overflow-hidden">
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight flex items-center gap-3">
-                  <Icons.BookOpen className="h-8 w-8 text-primary shrink-0" /> Grade Curricular
+                  <BookOpen className="h-8 w-8 text-primary shrink-0" /> Grade Curricular
                 </h2>
                 <Accordion type="multiple" className="w-full space-y-3 sm:space-y-4">
                   {course.curriculum_json.map((mod, idx) => (
@@ -372,7 +372,7 @@ export default function CourseDetail() {
               (!course.curriculum_json || course.curriculum_json.length === 0) && (
                 <section className="space-y-6 sm:space-y-8 w-full overflow-hidden">
                   <h2 className="text-2xl sm:text-3xl font-bold tracking-tight flex items-center gap-3">
-                    <Icons.BookOpen className="h-8 w-8 text-primary shrink-0" /> Conteúdo Curricular
+                    <BookOpen className="h-8 w-8 text-primary shrink-0" /> Conteúdo Curricular
                   </h2>
                   <div
                     className="prose prose-slate prose-orange dark:prose-invert max-w-none text-sm sm:text-base text-muted-foreground break-words overflow-x-auto"
@@ -387,7 +387,7 @@ export default function CourseDetail() {
             {hasPayments && (
               <div ref={paymentRef} id="investimento" className="space-y-6 scroll-mt-28">
                 <h3 className="text-2xl font-bold flex items-center gap-2">
-                  <Icons.CreditCard className="h-6 w-6 text-primary" /> Investimento
+                  <CreditCard className="h-6 w-6 text-primary" /> Investimento
                 </h3>
                 <div className="grid gap-6">
                   {course.payment_options_json
@@ -425,7 +425,7 @@ export default function CourseDetail() {
                         >
                           <a href={wppUrl} target="_blank" rel="noreferrer">
                             {opt.button_text || 'Garantir Vaga'}{' '}
-                            <Icons.ArrowRight className="ml-2 h-4 w-4" />
+                            <ArrowRight className="ml-2 h-4 w-4" />
                           </a>
                         </Button>
                         {opt.observation && (
@@ -443,7 +443,7 @@ export default function CourseDetail() {
             {(!hasPayments || course.payment_options_json?.length === 0) && (
               <div className="p-8 rounded-3xl bg-primary/5 border border-primary/20 text-center space-y-6 shadow-sm">
                 <div className="mx-auto w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-2">
-                  <Icons.Headset className="h-8 w-8 text-primary" />
+                  <Headset className="h-8 w-8 text-primary" />
                 </div>
                 <h3 className="text-2xl font-bold">Ficou com dúvida?</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -456,7 +456,7 @@ export default function CourseDetail() {
                   asChild
                 >
                   <a href={wppUrl} target="_blank" rel="noreferrer">
-                    <Icons.MessageCircle className="mr-2 h-6 w-6" /> Falar no WhatsApp
+                    <MessageCircle className="mr-2 h-6 w-6" /> Falar no WhatsApp
                   </a>
                 </Button>
               </div>
@@ -479,7 +479,7 @@ export default function CourseDetail() {
           asChild
         >
           <a href={wppUrl} target="_blank" rel="noreferrer">
-            <Icons.MessageCircle className="mr-2 h-6 w-6 shrink-0" /> Falar no WhatsApp
+            <MessageCircle className="mr-2 h-6 w-6 shrink-0" /> Falar no WhatsApp
           </a>
         </Button>
       </div>
