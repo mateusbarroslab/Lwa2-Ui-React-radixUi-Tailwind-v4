@@ -152,7 +152,7 @@ export default function Contact() {
                         <FormItem>
                           <FormLabel>WhatsApp *</FormLabel>
                           <FormControl>
-                            <Input placeholder="(24) 99293-4189" {...field} />
+                            <Input placeholder="Seu whatsapp" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
