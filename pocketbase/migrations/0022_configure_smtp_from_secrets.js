@@ -22,7 +22,7 @@ migrate(
     app
       .db()
       .newQuery(
-        "UPDATE _params SET value = json_set(value, '$.smtp', json(:smtp)) WHERE id = 'settings'",
+        "UPDATE _params SET value = json_set(value, '$.smtp', json({:smtp})) WHERE id = 'settings'",
       )
       .bind({ smtp: smtpConfig })
       .execute()
@@ -42,7 +42,7 @@ migrate(
     app
       .db()
       .newQuery(
-        "UPDATE _params SET value = json_set(value, '$.smtp', json(:smtp)) WHERE id = 'settings'",
+        "UPDATE _params SET value = json_set(value, '$.smtp', json({:smtp})) WHERE id = 'settings'",
       )
       .bind({ smtp: smtpConfig })
       .execute()
