@@ -182,7 +182,7 @@ export default function Contact() {
                           <FormLabel>WhatsApp *</FormLabel>
                           <FormControl>
                             <Input
-                              placeholder="(24) 99293-4189"
+                              placeholder="Seu Telefone Whatsapp"
                               {...field}
                               onChange={(e) => field.onChange(maskPhone(e.target.value))}
                               inputMode="numeric"
