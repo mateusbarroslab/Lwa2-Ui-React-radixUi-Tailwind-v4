@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { GraduationCap, MessageCircle, Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -18,6 +19,7 @@ export default function PublicLayout() {
   const location = useLocation()
   const { isAuthenticated } = useAuth()
   const { settings } = useSettingsContext()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const isInternshipPage = location.pathname === '/estagios'
   const whatsappUrl = isInternshipPage
@@ -76,7 +78,7 @@ export default function PublicLayout() {
           </div>
 
           <div className="md:hidden flex items-center">
-            <Sheet>
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden">
                   <Menu className="h-5 w-5" />
@@ -105,6 +107,7 @@ export default function PublicLayout() {
                     <Link
                       key={link.href}
                       to={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
                       className={cn(
                         'text-lg font-medium',
                         location.pathname === link.href ? 'text-primary' : 'text-muted-foreground',
@@ -114,14 +117,16 @@ export default function PublicLayout() {
                     </Link>
                   ))}
                   <hr className="my-2" />
-                  <Button asChild className="w-full">
+                  <Button asChild className="w-full" onClick={() => setMobileMenuOpen(false)}>
                     <a href={whatsappUrl} target="_blank" rel="noreferrer">
                       Matricule-se
                     </a>
                   </Button>
                   {isAuthenticated && (
                     <Button variant="outline" asChild className="w-full">
-                      <Link to="/admin/dashboard">Painel Admin</Link>
+                      <Link to="/admin/dashboard" onClick={() => setMobileMenuOpen(false)}>
+                        Painel Admin
+                      </Link>
                     </Button>
                   )}
                 </div>
