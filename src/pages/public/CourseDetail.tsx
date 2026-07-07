@@ -1,6 +1,19 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import * as Icons from 'lucide-react'
+import {
+  ArrowLeft,
+  ArrowRight,
+  MessageCircle,
+  Award,
+  Clock,
+  GraduationCap,
+  Info,
+  Landmark,
+  ExternalLink,
+  BookOpen,
+  CreditCard,
+  Headset,
+} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -13,10 +26,10 @@ import {
 import { useSEO } from '@/hooks/use-seo'
 import { useSettingsContext } from '@/hooks/use-settings'
 import { getCourseBySlug, Course, getCourseImageUrl } from '@/services/courses'
+import { getIcon } from '@/lib/icon-registry'
 
 const DynamicIcon = ({ name, className }: { name: string; className?: string }) => {
-  // @ts-expect-error
-  const Icon = Icons[name] || Icons.CheckCircle
+  const Icon = getIcon(name)
   return <Icon className={className} />
 }
 
@@ -137,6 +150,8 @@ export default function CourseDetail() {
                 <img
                   src={getCourseImageUrl(course, course.image)}
                   alt={course.title}
+                  loading="eager"
+                  fetchPriority="high"
                   className="object-cover w-full h-full"
                 />
               ) : (

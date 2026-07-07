@@ -27,6 +27,8 @@ export default function Internship() {
               <img
                 src={logoCeinee}
                 alt="CEINEE"
+                loading="eager"
+                fetchPriority="high"
                 className="w-full h-full object-cover rounded-full"
               />
             </div>

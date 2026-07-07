@@ -86,9 +86,11 @@
 @layer utilities {
   .font-mono {
     font-family: 'JetBrains Mono', monospace;
+    font-display: swap;
   }
   .font-sans {
     font-family: 'Inter', sans-serif;
+    font-display: swap;
   }
 
   .bg-grid-pattern {

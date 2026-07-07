@@ -48,6 +48,8 @@ export default function Home() {
             <img
               src={heroCoursesImg}
               alt="Cursos Técnicos"
+              loading="eager"
+              fetchPriority="high"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
@@ -74,6 +76,8 @@ export default function Home() {
             <img
               src={heroInternshipsImg}
               alt="Programa de Estágios"
+              loading="eager"
+              fetchPriority="high"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
