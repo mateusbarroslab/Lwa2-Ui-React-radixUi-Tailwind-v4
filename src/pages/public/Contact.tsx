@@ -206,11 +206,7 @@ export default function Contact() {
                       <FormItem>
                         <FormLabel>E-mail (opcional)</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder="seu@email.com"
-                            disabled={submitting}
-                            {...field}
-                          />{' '}
+                          <Input placeholder="seu@email.com" disabled={submitting} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
