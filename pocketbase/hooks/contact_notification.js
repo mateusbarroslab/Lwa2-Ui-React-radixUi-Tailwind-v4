@@ -11,7 +11,17 @@ onRecordAfterCreateSuccess((e) => {
   const contactEmailRaw = e.record.getString('email')
   const contactEmail =
     contactEmailRaw && contactEmailRaw.trim() !== '' ? contactEmailRaw : 'Não informado'
-  const whatsapp = e.record.getString('whatsapp') || 'Não informado'
+  const whatsappRaw = e.record.getString('whatsapp') || ''
+
+  // Sanitize whatsapp number — remove all non-numeric characters
+  let whatsappDigits = whatsappRaw.replace(/\D/g, '')
+  // Ensure country code 55 prefix if not already present
+  if (whatsappDigits.length === 10 || whatsappDigits.length === 11) {
+    whatsappDigits = '55' + whatsappDigits
+  }
+  const whatsappLink = whatsappDigits ? 'https://wa.me/' + whatsappDigits : ''
+  const whatsappDisplay = whatsappRaw || 'Não informado'
+
   const messageText = e.record.getString('message') || 'sem mensagem'
 
   let courseTitle = 'Não informado'
@@ -28,13 +38,40 @@ onRecordAfterCreateSuccess((e) => {
     'Nova mensagem de contato recebida:',
     '',
     'Nome Completo: ' + name,
-    'WhatsApp: ' + whatsapp,
+    'WhatsApp: ' + whatsappDisplay,
+    'Falar no WhatsApp: ' + (whatsappLink || 'Não informado'),
     'E-mail: ' + contactEmail,
     'Curso de Interesse: ' + courseTitle,
     'Mensagem: ' + messageText,
   ].join('\n')
 
-  const emailHtml = emailContent.replace(/\n/g, '<br>')
+  const whatsappLinkHtml = whatsappLink
+    ? '<a href="' + whatsappLink + '" style="color:#2563eb;font-weight:bold;">Falar no WhatsApp</a>'
+    : 'Não informado'
+
+  const emailHtml = [
+    '<h2 style="font-family:sans-serif;">Nova mensagem de contato recebida</h2>',
+    '<table style="font-family:sans-serif;font-size:14px;border-collapse:collapse;">',
+    '<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Nome Completo:</td><td>' +
+      name +
+      '</td></tr>',
+    '<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">WhatsApp:</td><td>' +
+      whatsappDisplay +
+      '</td></tr>',
+    '<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Falar no WhatsApp:</td><td>' +
+      whatsappLinkHtml +
+      '</td></tr>',
+    '<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">E-mail:</td><td>' +
+      contactEmail +
+      '</td></tr>',
+    '<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Curso de Interesse:</td><td>' +
+      courseTitle +
+      '</td></tr>',
+    '<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Mensagem:</td><td>' +
+      messageText +
+      '</td></tr>',
+    '</table>',
+  ].join('')
 
   $app
     .logger()
@@ -51,7 +88,9 @@ onRecordAfterCreateSuccess((e) => {
       'sender_email',
       contactEmail,
       'sender_whatsapp',
-      whatsapp,
+      whatsappDisplay,
+      'whatsapp_link',
+      whatsappLink,
       'course',
       courseTitle,
     )

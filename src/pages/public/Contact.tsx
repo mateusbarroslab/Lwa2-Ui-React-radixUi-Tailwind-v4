@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -9,6 +9,13 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import {
   Form,
   FormControl,
   FormField,
@@ -18,13 +25,26 @@ import {
 } from '@/components/ui/form'
 import { toast } from '@/components/ui/use-toast'
 import { createContact } from '@/services/contacts'
+import { getCourses, Course } from '@/services/courses'
 import { getErrorMessage } from '@/lib/pocketbase/errors'
+
+function maskPhone(value: string): string {
+  const digits = value.replace(/\D/g, '').slice(0, 11)
+  if (digits.length <= 2) return digits
+  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`
+  if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`
+}
 
 const formSchema = z.object({
   name: z.string().min(2, 'Nome deve ter no mínimo 2 caracteres'),
   email: z.string().email('E-mail inválido').or(z.literal('')),
-  whatsapp: z.string().min(10, 'Telefone/WhatsApp inválido'),
+  whatsapp: z.string().refine((v) => {
+    const digits = v.replace(/\D/g, '')
+    return digits.length === 10 || digits.length === 11
+  }, 'Telefone deve ter 10 ou 11 dígitos (DDD + número)'),
   message: z.string().min(10, 'A mensagem deve ter no mínimo 10 caracteres'),
+  course_id: z.string().optional(),
 })
 
 export default function Contact() {
@@ -34,19 +54,28 @@ export default function Contact() {
   )
 
   const [submitting, setSubmitting] = useState(false)
+  const [courses, setCourses] = useState<Course[]>([])
 
   const { settings } = useSettingsContext()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { name: '', email: '', whatsapp: '', message: '' },
+    defaultValues: { name: '', email: '', whatsapp: '', message: '', course_id: '' },
   })
+
+  useEffect(() => {
+    getCourses()
+      .then(setCourses)
+      .catch(() => {})
+  }, [])
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setSubmitting(true)
     try {
-      const { email, ...rest } = values
-      const payload = email ? { ...rest, email } : rest
+      const { email, course_id, ...rest } = values
+      const payload: Record<string, unknown> = { ...rest }
+      if (email) payload.email = email
+      if (course_id) payload.course_id = course_id
       await createContact(payload)
       toast({
         title: 'Mensagem enviada!',
@@ -152,7 +181,12 @@ export default function Contact() {
                         <FormItem>
                           <FormLabel>WhatsApp *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Seu whatsapp" {...field} />
+                            <Input
+                              placeholder="(24) 99293-4189"
+                              {...field}
+                              onChange={(e) => field.onChange(maskPhone(e.target.value))}
+                              inputMode="numeric"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -168,6 +202,30 @@ export default function Contact() {
                         <FormControl>
                           <Input placeholder="seu@email.com" {...field} />
                         </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="course_id"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Curso de Interesse (opcional)</FormLabel>
+                        <Select onValueChange={field.onChange} value={field.value || undefined}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Selecione um curso" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {courses.map((course) => (
+                              <SelectItem key={course.id} value={course.id}>
+                                {course.title}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                         <FormMessage />
                       </FormItem>
                     )}
