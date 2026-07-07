@@ -4,6 +4,7 @@ import { Toaster as Sonner } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { AuthProvider, useAuth } from '@/hooks/use-auth'
 import { SettingsProvider } from '@/hooks/use-settings'
+import { ScrollToTop } from '@/components/ScrollToTop'
 
 import PublicLayout from '@/layouts/PublicLayout'
 import AdminLayout from '@/layouts/AdminLayout'
@@ -31,6 +32,7 @@ const App = () => (
   <AuthProvider>
     <SettingsProvider>
       <BrowserRouter future={{ v7_startTransition: false, v7_relativeSplatPath: false }}>
+        <ScrollToTop />
         <TooltipProvider>
           <Toaster />
           <Sonner />
