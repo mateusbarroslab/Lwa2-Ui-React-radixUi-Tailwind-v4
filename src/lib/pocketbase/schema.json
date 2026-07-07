@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T18:59:06.362Z",
+  "generatedAt": "2026-07-07T13:25:11.303Z",
   "collections": [
     {
       "name": "users",
@@ -29,14 +29,19 @@
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate"]
+          "autodateTriggers": [
+            "onCreate"
+          ]
         },
         {
           "name": "updated",
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate", "onUpdate"]
+          "autodateTriggers": [
+            "onCreate",
+            "onUpdate"
+          ]
         }
       ],
       "indexes": [
@@ -90,7 +95,13 @@
           "type": "select",
           "required": false,
           "system": false,
-          "selectValues": ["Industrial", "Health", "Business", "Technology", "Other"]
+          "selectValues": [
+            "Industrial",
+            "Health",
+            "Business",
+            "Technology",
+            "Other"
+          ]
         },
         {
           "name": "image",
@@ -123,14 +134,19 @@
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate"]
+          "autodateTriggers": [
+            "onCreate"
+          ]
         },
         {
           "name": "updated",
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate", "onUpdate"]
+          "autodateTriggers": [
+            "onCreate",
+            "onUpdate"
+          ]
         },
         {
           "name": "curriculum_json",
@@ -236,7 +252,9 @@
           "collectionRef": "categories"
         }
       ],
-      "indexes": ["CREATE UNIQUE INDEX idx_courses_slug ON courses (slug)"]
+      "indexes": [
+        "CREATE UNIQUE INDEX idx_courses_slug ON courses (slug)"
+      ]
     },
     {
       "name": "contacts",
@@ -285,14 +303,19 @@
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate"]
+          "autodateTriggers": [
+            "onCreate"
+          ]
         },
         {
           "name": "updated",
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate", "onUpdate"]
+          "autodateTriggers": [
+            "onCreate",
+            "onUpdate"
+          ]
         }
       ],
       "indexes": []
@@ -331,17 +354,24 @@
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate"]
+          "autodateTriggers": [
+            "onCreate"
+          ]
         },
         {
           "name": "updated",
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate", "onUpdate"]
+          "autodateTriggers": [
+            "onCreate",
+            "onUpdate"
+          ]
         }
       ],
-      "indexes": ["CREATE UNIQUE INDEX idx_categories_slug ON categories (slug)"]
+      "indexes": [
+        "CREATE UNIQUE INDEX idx_categories_slug ON categories (slug)"
+      ]
     },
     {
       "name": "settings",
@@ -395,14 +425,19 @@
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate"]
+          "autodateTriggers": [
+            "onCreate"
+          ]
         },
         {
           "name": "updated",
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate", "onUpdate"]
+          "autodateTriggers": [
+            "onCreate",
+            "onUpdate"
+          ]
         },
         {
           "name": "hero_courses_image",
