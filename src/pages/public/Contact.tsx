@@ -44,7 +44,9 @@ export default function Contact() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setSubmitting(true)
     try {
-      await createContact(values)
+      const { email, ...rest } = values
+      const payload = email ? { ...rest, email } : rest
+      await createContact(payload)
       toast({
         title: 'Mensagem enviada!',
         description: 'Entraremos em contato com você o mais breve possível.',
