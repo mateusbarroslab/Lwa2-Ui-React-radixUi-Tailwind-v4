@@ -1,6 +1,11 @@
 onRecordAfterCreateSuccess((e) => {
   const recipientEmail = 'contato@primeiraconquista.com.br'
-  const smtpUsername = $secrets.get('SMTP_USERNAME') || recipientEmail
+  const senderName = $secrets.get('SMTP_SENDER_NAME') || 'Site Primeira Conquista'
+  const senderAddress =
+    $secrets.get('SMTP_SENDER_ADDRESS') ||
+    $secrets.get('SMTP_USERNAME') ||
+    $secrets.get('SMTP_USER') ||
+    recipientEmail
   const name = e.record.getString('name')
   const senderEmail = e.record.getString('email') || 'Não informado'
   const whatsapp = e.record.getString('whatsapp')
@@ -46,7 +51,7 @@ onRecordAfterCreateSuccess((e) => {
 
   try {
     const msg = new Message({
-      from: { name: 'Site Primeira Conquista', address: smtpUsername },
+      from: { name: senderName, address: senderAddress },
       to: [{ address: recipientEmail }],
       subject: emailSubject,
       text: emailContent,
