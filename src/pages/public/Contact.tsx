@@ -260,13 +260,13 @@ export default function Contact() {
                   />
                   <Button type="submit" size="lg" className="w-full" disabled={submitting}>
                     {submitting ? (
-                      <>
+                      <span className="inline-flex items-center">
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Enviando...
-                      </>
+                      </span>
                     ) : (
-                      <>
+                      <span className="inline-flex items-center">
                         Enviar Mensagem <Send className="ml-2 h-4 w-4" />
-                      </>
+                      </span>
                     )}
                   </Button>
                 </form>
