@@ -19,9 +19,12 @@ export default function PublicLayout() {
   const { isAuthenticated } = useAuth()
   const { settings } = useSettingsContext()
 
-  const whatsappUrl = settings?.whatsapp
-    ? `https://wa.me/${settings.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent('Olá, gostaria de saber mais sobre a Primeira Conquista.')}`
-    : `https://wa.me/5524992934189?text=${encodeURIComponent('Olá, gostaria de saber mais sobre a Primeira Conquista.')}`
+  const isInternshipPage = location.pathname === '/estagios'
+  const whatsappUrl = isInternshipPage
+    ? 'https://wa.me/5524992013654'
+    : settings?.whatsapp
+      ? `https://wa.me/${settings.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent('Olá, gostaria de saber mais sobre a Primeira Conquista.')}`
+      : `https://wa.me/5524992934189?text=${encodeURIComponent('Olá, gostaria de saber mais sobre a Primeira Conquista.')}`
 
   const isCourseDetail = location.pathname.match(/^\/cursos\/[^/]+$/)
 
