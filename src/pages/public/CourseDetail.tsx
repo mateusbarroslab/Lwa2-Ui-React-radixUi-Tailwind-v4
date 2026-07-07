@@ -188,7 +188,7 @@ export default function CourseDetail() {
                 size="lg"
                 className="hidden lg:inline-flex w-full h-14 text-lg font-bold bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg"
               >
-                <a href={wppUrl} target="_blank" rel="noreferrer">
+                <a href={wppUrl} target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="mr-2 h-5 w-5" /> Garantir Vaga
                 </a>
               </Button>
@@ -423,7 +423,7 @@ export default function CourseDetail() {
                           variant={opt.highlight ? 'default' : 'outline'}
                           asChild
                         >
-                          <a href={wppUrl} target="_blank" rel="noreferrer">
+                          <a href={wppUrl} target="_blank" rel="noopener noreferrer">
                             {opt.button_text || 'Garantir Vaga'}{' '}
                             <ArrowRight className="ml-2 h-4 w-4" />
                           </a>
@@ -455,7 +455,7 @@ export default function CourseDetail() {
                   className="hidden lg:inline-flex w-full h-14 text-base font-bold bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg shadow-[#25D366]/20"
                   asChild
                 >
-                  <a href={wppUrl} target="_blank" rel="noreferrer">
+                  <a href={wppUrl} target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="mr-2 h-6 w-6" /> Falar no WhatsApp
                   </a>
                 </Button>
@@ -478,7 +478,7 @@ export default function CourseDetail() {
           className="w-full h-14 text-lg font-bold bg-[#25D366] hover:bg-[#128C7E] text-white shadow-xl shadow-[#25D366]/20"
           asChild
         >
-          <a href={wppUrl} target="_blank" rel="noreferrer">
+          <a href={wppUrl} target="_blank" rel="noopener noreferrer">
             <MessageCircle className="mr-2 h-6 w-6 shrink-0" /> Falar no WhatsApp
           </a>
         </Button>

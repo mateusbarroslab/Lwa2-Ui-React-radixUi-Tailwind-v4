@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { MapPin, Phone, Mail, Send } from 'lucide-react'
+import { MapPin, Phone, Mail, Send, Loader2 } from 'lucide-react'
 import { useSEO } from '@/hooks/use-seo'
 import { useSettingsContext } from '@/hooks/use-settings'
 import { Button } from '@/components/ui/button'
@@ -156,7 +156,12 @@ export default function Contact() {
           </div>
 
           <div className="lg:col-span-3">
-            <div className="border bg-card p-8 rounded-3xl shadow-sm">
+            <div className="relative border bg-card p-8 rounded-3xl shadow-sm">
+              {submitting && (
+                <div className="absolute inset-0 z-20 flex items-center justify-center rounded-3xl bg-background/40 backdrop-blur-sm animate-fade-in">
+                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                </div>
+              )}
               <h2 className="text-2xl font-bold mb-6">Envie uma mensagem</h2>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -168,7 +173,7 @@ export default function Contact() {
                         <FormItem>
                           <FormLabel>Nome Completo *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Seu nome" {...field} />
+                            <Input placeholder="Seu nome" disabled={submitting} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -183,6 +188,7 @@ export default function Contact() {
                           <FormControl>
                             <Input
                               placeholder="Seu Telefone Whatsapp"
+                              disabled={submitting}
                               {...field}
                               onChange={(e) => field.onChange(maskPhone(e.target.value))}
                               inputMode="numeric"
@@ -200,7 +206,11 @@ export default function Contact() {
                       <FormItem>
                         <FormLabel>E-mail (opcional)</FormLabel>
                         <FormControl>
-                          <Input placeholder="seu@email.com" {...field} />
+                          <Input
+                            placeholder="seu@email.com"
+                            disabled={submitting}
+                            {...field}
+                          />{' '}
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -214,7 +224,7 @@ export default function Contact() {
                         <FormLabel>Curso de Interesse (opcional)</FormLabel>
                         <Select onValueChange={field.onChange} value={field.value || undefined}>
                           <FormControl>
-                            <SelectTrigger>
+                            <SelectTrigger disabled={submitting}>
                               <SelectValue placeholder="Selecione um curso" />
                             </SelectTrigger>
                           </FormControl>
@@ -240,6 +250,7 @@ export default function Contact() {
                           <Textarea
                             placeholder="Como podemos te ajudar?"
                             className="min-h-[150px] resize-none"
+                            disabled={submitting}
                             {...field}
                           />
                         </FormControl>
@@ -249,7 +260,9 @@ export default function Contact() {
                   />
                   <Button type="submit" size="lg" className="w-full" disabled={submitting}>
                     {submitting ? (
-                      'Enviando...'
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Enviando...
+                      </>
                     ) : (
                       <>
                         Enviar Mensagem <Send className="ml-2 h-4 w-4" />
