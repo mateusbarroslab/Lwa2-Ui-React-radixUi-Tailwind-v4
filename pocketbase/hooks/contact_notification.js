@@ -1,4 +1,4 @@
-onRecordAfterCreateSuccess((e) => {
+onRecordCreate((e) => {
   const recipientEmail = 'contato@primeiraconquista.com.br'
   const senderName = $secrets.get('SMTP_SENDER_NAME') || 'Site Primeira Conquista'
   const senderAddress =
@@ -6,9 +6,12 @@ onRecordAfterCreateSuccess((e) => {
     $secrets.get('SMTP_USERNAME') ||
     $secrets.get('SMTP_USER') ||
     recipientEmail
+
   const name = e.record.getString('name')
-  const senderEmail = e.record.getString('email') || 'Não informado'
-  const whatsapp = e.record.getString('whatsapp')
+  const contactEmailRaw = e.record.getString('email')
+  const contactEmail =
+    contactEmailRaw && contactEmailRaw.trim() !== '' ? contactEmailRaw : 'Não informado'
+  const whatsapp = e.record.getString('whatsapp') || 'Não informado'
   const messageText = e.record.getString('message') || 'sem mensagem'
 
   let courseTitle = 'Não informado'
@@ -26,7 +29,7 @@ onRecordAfterCreateSuccess((e) => {
     '',
     'Nome Completo: ' + name,
     'WhatsApp: ' + whatsapp,
-    'E-mail: ' + senderEmail,
+    'E-mail: ' + contactEmail,
     'Curso de Interesse: ' + courseTitle,
     'Mensagem: ' + messageText,
   ].join('\n')
@@ -37,12 +40,14 @@ onRecordAfterCreateSuccess((e) => {
       'Contact notification email triggered',
       'to',
       recipientEmail,
+      'from',
+      senderAddress,
       'subject',
       emailSubject,
       'sender_name',
       name,
       'sender_email',
-      senderEmail,
+      contactEmail,
       'sender_whatsapp',
       whatsapp,
       'course',
@@ -65,9 +70,14 @@ onRecordAfterCreateSuccess((e) => {
         'Failed to send contact notification email',
         'error',
         err.message,
-        'recordId',
-        e.record.id,
+        'recordName',
+        name,
+        'from',
+        senderAddress,
+        'to',
+        recipientEmail,
       )
+    throw new BadRequestError('Falha ao enviar notificação por e-mail: ' + err.message)
   }
 
   return e.next()

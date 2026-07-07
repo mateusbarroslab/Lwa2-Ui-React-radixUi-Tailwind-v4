@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/form'
 import { toast } from '@/components/ui/use-toast'
 import { createContact } from '@/services/contacts'
+import { getErrorMessage } from '@/lib/pocketbase/errors'
 
 const formSchema = z.object({
   name: z.string().min(2, 'Nome deve ter no mínimo 2 caracteres'),
@@ -56,8 +57,7 @@ export default function Contact() {
     } catch (error) {
       toast({
         title: 'Erro ao enviar',
-        description:
-          'Houve um problema ao processar sua mensagem. Tente novamente ou use o WhatsApp.',
+        description: getErrorMessage(error),
         variant: 'destructive',
       })
     } finally {
