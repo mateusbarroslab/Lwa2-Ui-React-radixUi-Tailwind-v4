@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lwa2-ui-factory-a22e9.shrd00.internal.goskip.dev/backend/v1/sitemap

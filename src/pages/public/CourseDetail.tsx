@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
@@ -26,6 +26,8 @@ import {
 import { useSEO } from '@/hooks/use-seo'
 import { useSettingsContext } from '@/hooks/use-settings'
 import { getCourseBySlug, Course, getCourseImageUrl } from '@/services/courses'
+import { getSettingsImageUrl } from '@/services/settings'
+import { useRealtime } from '@/hooks/use-realtime'
 import { getIcon } from '@/lib/icon-registry'
 
 const DynamicIcon = ({ name, className }: { name: string; className?: string }) => {
@@ -50,12 +52,50 @@ export default function CourseDetail() {
       .finally(() => setLoading(false))
   }, [slug, navigate])
 
+  const jsonLd = useMemo(() => {
+    if (!course) return null
+    const pbUrl = import.meta.env.VITE_POCKETBASE_URL
+    const imageUrl = course.image ? `${pbUrl}${getCourseImageUrl(course, course.image)}` : undefined
+    const logoUrl =
+      settings && settings.logo_header
+        ? `${pbUrl}${getSettingsImageUrl(settings, settings.logo_header)}`
+        : undefined
+    const cleanDesc =
+      course.short_description ||
+      course.description
+        ?.replace(/<[^>]*>?/gm, '')
+        .trim()
+        .substring(0, 300) ||
+      ''
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'Course',
+      name: course.title,
+      description: cleanDesc,
+      ...(imageUrl && { image: imageUrl }),
+      provider: {
+        '@type': 'Organization',
+        name: 'Primeira Conquista',
+        ...(logoUrl && { logo: logoUrl }),
+      },
+    }
+  }, [course, settings])
+
   useSEO(
     course?.title || 'Carregando...',
     course?.short_description ||
       course?.description?.substring(0, 160) ||
       'Detalhes do curso técnico.',
+    jsonLd,
   )
+
+  useRealtime('courses', (e) => {
+    if (course && e.record.id === course.id) {
+      getCourseBySlug(slug!)
+        .then(setCourse)
+        .catch(() => {})
+    }
+  })
 
   if (loading || !course)
     return (
