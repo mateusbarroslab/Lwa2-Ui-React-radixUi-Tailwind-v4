@@ -3,7 +3,7 @@ onRecordAfterCreateSuccess((e) => {
   const name = e.record.getString('name')
   const senderEmail = e.record.getString('email') || 'Não informado'
   const whatsapp = e.record.getString('whatsapp')
-  const message = e.record.getString('message') || 'sem mensagem'
+  const messageText = e.record.getString('message') || 'sem mensagem'
 
   const emailSubject = 'Nova mensagem de contato - ' + name
   const emailContent = [
@@ -11,7 +11,7 @@ onRecordAfterCreateSuccess((e) => {
     '',
     'Nome Completo: ' + name,
     'WhatsApp: ' + whatsapp,
-    'Mensagem: ' + message,
+    'Mensagem: ' + messageText,
     'E-mail: ' + senderEmail,
   ].join('\n')
 
@@ -23,8 +23,6 @@ onRecordAfterCreateSuccess((e) => {
       recipientEmail,
       'subject',
       emailSubject,
-      'body',
-      emailContent,
       'sender_name',
       name,
       'sender_email',
@@ -33,5 +31,26 @@ onRecordAfterCreateSuccess((e) => {
       whatsapp,
     )
 
-  e.next()
+  try {
+    const msg = new Message({
+      from: { name: 'Site Primeira Conquista', address: recipientEmail },
+      to: [{ address: recipientEmail }],
+      subject: emailSubject,
+      text: emailContent,
+      html: emailContent.replace(/\n/g, '<br>'),
+    })
+    $app.newMailClient().send(msg)
+  } catch (err) {
+    $app
+      .logger()
+      .error(
+        'Failed to send contact notification email',
+        'error',
+        err.message,
+        'recordId',
+        e.record.id,
+      )
+  }
+
+  return e.next()
 }, 'contacts')
